@@ -1,0 +1,402 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		24D14591781D40C8F8D8996E /* Pods_Chatctron.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06B7B753BAE61D11BA89365 /* Pods_Chatctron.framework */; };
+		3110E30324D86EDC00813AE7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3110E30224D86EDC00813AE7 /* AppDelegate.swift */; };
+		3110E30524D86EDC00813AE7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3110E30424D86EDC00813AE7 /* SceneDelegate.swift */; };
+		3110E30C24D86EDE00813AE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3110E30B24D86EDE00813AE7 /* Assets.xcassets */; };
+		3110E30F24D86EDE00813AE7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3110E30D24D86EDE00813AE7 /* LaunchScreen.storyboard */; };
+		3110E31724D86F9C00813AE7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3110E31624D86F9C00813AE7 /* LoginViewController.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3110E2FF24D86EDC00813AE7 /* Chatctron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chatctron.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3110E30224D86EDC00813AE7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		3110E30424D86EDC00813AE7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		3110E30B24D86EDE00813AE7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3110E30E24D86EDE00813AE7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		3110E31024D86EDE00813AE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3110E31624D86F9C00813AE7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		517042597008898B699CFE27 /* Pods-Chatctron.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatctron.debug.xcconfig"; path = "Target Support Files/Pods-Chatctron/Pods-Chatctron.debug.xcconfig"; sourceTree = "<group>"; };
+		A06B7B753BAE61D11BA89365 /* Pods_Chatctron.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatctron.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D7084F312FBD3D8136625E81 /* Pods-Chatctron.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatctron.release.xcconfig"; path = "Target Support Files/Pods-Chatctron/Pods-Chatctron.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3110E2FC24D86EDB00813AE7 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				24D14591781D40C8F8D8996E /* Pods_Chatctron.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3110E2F624D86EDB00813AE7 = {
+			isa = PBXGroup;
+			children = (
+				3110E30124D86EDC00813AE7 /* Chatctron */,
+				3110E30024D86EDC00813AE7 /* Products */,
+				895A68E12719CF90E90D13EE /* Pods */,
+				6AFAF6D382A4B71A4B03CFAA /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		3110E30024D86EDC00813AE7 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3110E2FF24D86EDC00813AE7 /* Chatctron.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3110E30124D86EDC00813AE7 /* Chatctron */ = {
+			isa = PBXGroup;
+			children = (
+				3110E31624D86F9C00813AE7 /* LoginViewController.swift */,
+				3110E30224D86EDC00813AE7 /* AppDelegate.swift */,
+				3110E30424D86EDC00813AE7 /* SceneDelegate.swift */,
+				3110E30B24D86EDE00813AE7 /* Assets.xcassets */,
+				3110E30D24D86EDE00813AE7 /* LaunchScreen.storyboard */,
+				3110E31024D86EDE00813AE7 /* Info.plist */,
+			);
+			path = Chatctron;
+			sourceTree = "<group>";
+		};
+		6AFAF6D382A4B71A4B03CFAA /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				A06B7B753BAE61D11BA89365 /* Pods_Chatctron.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		895A68E12719CF90E90D13EE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				517042597008898B699CFE27 /* Pods-Chatctron.debug.xcconfig */,
+				D7084F312FBD3D8136625E81 /* Pods-Chatctron.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3110E2FE24D86EDB00813AE7 /* Chatctron */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3110E31324D86EDE00813AE7 /* Build configuration list for PBXNativeTarget "Chatctron" */;
+			buildPhases = (
+				11DA1ECAD3DA6FC375C21D4F /* [CP] Check Pods Manifest.lock */,
+				3110E2FB24D86EDB00813AE7 /* Sources */,
+				3110E2FC24D86EDB00813AE7 /* Frameworks */,
+				3110E2FD24D86EDB00813AE7 /* Resources */,
+				F8A6B1D7A0FB969950F0FA97 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Chatctron;
+			productName = Chatctron;
+			productReference = 3110E2FF24D86EDC00813AE7 /* Chatctron.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3110E2F724D86EDB00813AE7 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1160;
+				LastUpgradeCheck = 1160;
+				ORGANIZATIONNAME = "Hanlin Chen";
+				TargetAttributes = {
+					3110E2FE24D86EDB00813AE7 = {
+						CreatedOnToolsVersion = 11.6;
+					};
+				};
+			};
+			buildConfigurationList = 3110E2FA24D86EDB00813AE7 /* Build configuration list for PBXProject "Chatctron" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3110E2F624D86EDB00813AE7;
+			productRefGroup = 3110E30024D86EDC00813AE7 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3110E2FE24D86EDB00813AE7 /* Chatctron */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3110E2FD24D86EDB00813AE7 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3110E30F24D86EDE00813AE7 /* LaunchScreen.storyboard in Resources */,
+				3110E30C24D86EDE00813AE7 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		11DA1ECAD3DA6FC375C21D4F /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Chatctron-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F8A6B1D7A0FB969950F0FA97 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Chatctron/Pods-Chatctron-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Chatctron/Pods-Chatctron-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Chatctron/Pods-Chatctron-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3110E2FB24D86EDB00813AE7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3110E30324D86EDC00813AE7 /* AppDelegate.swift in Sources */,
+				3110E31724D86F9C00813AE7 /* LoginViewController.swift in Sources */,
+				3110E30524D86EDC00813AE7 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3110E30D24D86EDE00813AE7 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3110E30E24D86EDE00813AE7 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3110E31124D86EDE00813AE7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3110E31224D86EDE00813AE7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.6;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3110E31424D86EDE00813AE7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 517042597008898B699CFE27 /* Pods-Chatctron.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 98BMUDV2YN;
+				INFOPLIST_FILE = Chatctron/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Chatctron;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3110E31524D86EDE00813AE7 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D7084F312FBD3D8136625E81 /* Pods-Chatctron.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 98BMUDV2YN;
+				INFOPLIST_FILE = Chatctron/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.Chatctron;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3110E2FA24D86EDB00813AE7 /* Build configuration list for PBXProject "Chatctron" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3110E31124D86EDE00813AE7 /* Debug */,
+				3110E31224D86EDE00813AE7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3110E31324D86EDE00813AE7 /* Build configuration list for PBXNativeTarget "Chatctron" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3110E31424D86EDE00813AE7 /* Debug */,
+				3110E31524D86EDE00813AE7 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3110E2F724D86EDB00813AE7 /* Project object */;
+}
