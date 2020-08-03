@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,6 +13,9 @@
 		3110E30C24D86EDE00813AE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3110E30B24D86EDE00813AE7 /* Assets.xcassets */; };
 		3110E30F24D86EDE00813AE7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3110E30D24D86EDE00813AE7 /* LaunchScreen.storyboard */; };
 		3110E31724D86F9C00813AE7 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3110E31624D86F9C00813AE7 /* LoginViewController.swift */; };
+		3110E31B24D87A8E00813AE7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3110E31A24D87A8D00813AE7 /* GoogleService-Info.plist */; };
+		3110E32024D88B9E00813AE7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3110E31F24D88B9E00813AE7 /* SignUpViewController.swift */; };
+		3110E32224D89E5900813AE7 /* ProgressWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3110E32124D89E5900813AE7 /* ProgressWindow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -23,6 +26,9 @@
 		3110E30E24D86EDE00813AE7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3110E31024D86EDE00813AE7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3110E31624D86F9C00813AE7 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		3110E31A24D87A8D00813AE7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3110E31F24D88B9E00813AE7 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		3110E32124D89E5900813AE7 /* ProgressWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressWindow.swift; sourceTree = "<group>"; };
 		517042597008898B699CFE27 /* Pods-Chatctron.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatctron.debug.xcconfig"; path = "Target Support Files/Pods-Chatctron/Pods-Chatctron.debug.xcconfig"; sourceTree = "<group>"; };
 		A06B7B753BAE61D11BA89365 /* Pods_Chatctron.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatctron.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7084F312FBD3D8136625E81 /* Pods-Chatctron.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatctron.release.xcconfig"; path = "Target Support Files/Pods-Chatctron/Pods-Chatctron.release.xcconfig"; sourceTree = "<group>"; };
@@ -61,11 +67,14 @@
 		3110E30124D86EDC00813AE7 /* Chatctron */ = {
 			isa = PBXGroup;
 			children = (
+				3110E32124D89E5900813AE7 /* ProgressWindow.swift */,
 				3110E31624D86F9C00813AE7 /* LoginViewController.swift */,
+				3110E31F24D88B9E00813AE7 /* SignUpViewController.swift */,
 				3110E30224D86EDC00813AE7 /* AppDelegate.swift */,
 				3110E30424D86EDC00813AE7 /* SceneDelegate.swift */,
 				3110E30B24D86EDE00813AE7 /* Assets.xcassets */,
 				3110E30D24D86EDE00813AE7 /* LaunchScreen.storyboard */,
+				3110E31A24D87A8D00813AE7 /* GoogleService-Info.plist */,
 				3110E31024D86EDE00813AE7 /* Info.plist */,
 			);
 			path = Chatctron;
@@ -85,7 +94,6 @@
 				517042597008898B699CFE27 /* Pods-Chatctron.debug.xcconfig */,
 				D7084F312FBD3D8136625E81 /* Pods-Chatctron.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -151,6 +159,7 @@
 			files = (
 				3110E30F24D86EDE00813AE7 /* LaunchScreen.storyboard in Resources */,
 				3110E30C24D86EDE00813AE7 /* Assets.xcassets in Resources */,
+				3110E31B24D87A8E00813AE7 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,6 +214,8 @@
 			files = (
 				3110E30324D86EDC00813AE7 /* AppDelegate.swift in Sources */,
 				3110E31724D86F9C00813AE7 /* LoginViewController.swift in Sources */,
+				3110E32024D88B9E00813AE7 /* SignUpViewController.swift in Sources */,
+				3110E32224D89E5900813AE7 /* ProgressWindow.swift in Sources */,
 				3110E30524D86EDC00813AE7 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
