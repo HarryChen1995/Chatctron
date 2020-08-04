@@ -16,6 +16,7 @@
 		3110E31B24D87A8E00813AE7 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3110E31A24D87A8D00813AE7 /* GoogleService-Info.plist */; };
 		3110E32024D88B9E00813AE7 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3110E31F24D88B9E00813AE7 /* SignUpViewController.swift */; };
 		3110E32224D89E5900813AE7 /* ProgressWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3110E32124D89E5900813AE7 /* ProgressWindow.swift */; };
+		318A4AC924D9C34B00E28D09 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318A4AC824D9C34B00E28D09 /* HomeViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		3110E31A24D87A8D00813AE7 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3110E31F24D88B9E00813AE7 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		3110E32124D89E5900813AE7 /* ProgressWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressWindow.swift; sourceTree = "<group>"; };
+		318A4AC824D9C34B00E28D09 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		517042597008898B699CFE27 /* Pods-Chatctron.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatctron.debug.xcconfig"; path = "Target Support Files/Pods-Chatctron/Pods-Chatctron.debug.xcconfig"; sourceTree = "<group>"; };
 		A06B7B753BAE61D11BA89365 /* Pods_Chatctron.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatctron.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7084F312FBD3D8136625E81 /* Pods-Chatctron.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatctron.release.xcconfig"; path = "Target Support Files/Pods-Chatctron/Pods-Chatctron.release.xcconfig"; sourceTree = "<group>"; };
@@ -69,6 +71,7 @@
 			children = (
 				3110E32124D89E5900813AE7 /* ProgressWindow.swift */,
 				3110E31624D86F9C00813AE7 /* LoginViewController.swift */,
+				318A4AC824D9C34B00E28D09 /* HomeViewController.swift */,
 				3110E31F24D88B9E00813AE7 /* SignUpViewController.swift */,
 				3110E30224D86EDC00813AE7 /* AppDelegate.swift */,
 				3110E30424D86EDC00813AE7 /* SceneDelegate.swift */,
@@ -217,6 +220,7 @@
 				3110E32024D88B9E00813AE7 /* SignUpViewController.swift in Sources */,
 				3110E32224D89E5900813AE7 /* ProgressWindow.swift in Sources */,
 				3110E30524D86EDC00813AE7 /* SceneDelegate.swift in Sources */,
+				318A4AC924D9C34B00E28D09 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

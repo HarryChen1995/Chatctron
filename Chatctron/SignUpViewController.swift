@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class SignUpViewController : UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
-    
+
     lazy var profileImage : UIImageView  = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -21,7 +21,13 @@ class SignUpViewController : UIViewController, UIImagePickerControllerDelegate, 
         imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(uploadPhoto(_:))))
         return imageView
     }()
-    
+    let selectLabel : UILabel = {
+       let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.text = "Select Profile Picture"
+        label.font = UIFont.systemFont(ofSize: 16)
+        return label
+    }()
     @objc func uploadPhoto (_ sender: UITapGestureRecognizer){
         email.resignFirstResponder()
         password.resignFirstResponder()
@@ -77,6 +83,15 @@ class SignUpViewController : UIViewController, UIImagePickerControllerDelegate, 
         textfield.isSecureTextEntry = true
         return textfield
     }()
+    
+    let confirmPassword: UITextField = {
+        let textfield = UITextField()
+        textfield.borderStyle = .roundedRect
+        textfield.translatesAutoresizingMaskIntoConstraints = false
+        textfield.placeholder = "Confirm Password"
+        textfield.isSecureTextEntry = true
+        return textfield
+    }()
     lazy var signupButton : UIButton = {
         let button = UIButton()
         button.setTitle("Sign Up", for: .normal)
@@ -111,7 +126,13 @@ class SignUpViewController : UIViewController, UIImagePickerControllerDelegate, 
             
             present(alertController, animated: true, completion: nil)
         }
-        
+        else if password.text != confirmPassword.text{
+            let alertController = UIAlertController(title: "Password Misatched" , message: "Please veriy your passwords", preferredStyle: .alert)
+            
+            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+            
+            present(alertController, animated: true, completion: nil)
+        }
         else {
         let progressWindow = ProgressWindow()
         progressWindow.label = "Creating Your Account"
@@ -129,6 +150,7 @@ class SignUpViewController : UIViewController, UIImagePickerControllerDelegate, 
                 alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
                     self.email.text = ""
                     self.password.text = ""
+                    self.confirmPassword.text = ""
                     self.firstName.text = ""
                     self.LastName.text = ""
                 }))
@@ -196,6 +218,11 @@ class SignUpViewController : UIViewController, UIImagePickerControllerDelegate, 
         })
         }
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.navigationBar.barTintColor = .white
+        navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.primaryColor]
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -208,16 +235,22 @@ class SignUpViewController : UIViewController, UIImagePickerControllerDelegate, 
     
     private func setupSignUpPage(){
         view.addSubview(profileImage)
+        view.addSubview(selectLabel)
         view.addSubview(email)
         view.addSubview(firstName)
         view.addSubview(LastName)
         view.addSubview(password)
+        view.addSubview(confirmPassword)
         view.addSubview(signupButton)
         let constraints = [
             profileImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             profileImage.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant:  100),
             profileImage.widthAnchor.constraint(equalToConstant: 100),
             profileImage.heightAnchor.constraint(equalTo: profileImage.widthAnchor),
+            
+            selectLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            selectLabel.centerYAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 15),
+            
             email.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             email.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant:-50),
             email.heightAnchor.constraint(equalToConstant: 30),
@@ -238,10 +271,16 @@ class SignUpViewController : UIViewController, UIImagePickerControllerDelegate, 
             password.centerYAnchor.constraint(equalTo: LastName.centerYAnchor, constant: 50),
             password.heightAnchor.constraint(equalToConstant: 30),
             password.widthAnchor.constraint(equalToConstant: 250),
+            
+            confirmPassword.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            confirmPassword.centerYAnchor.constraint(equalTo: password.centerYAnchor, constant: 50),
+            confirmPassword.heightAnchor.constraint(equalToConstant: 30),
+            confirmPassword.widthAnchor.constraint(equalToConstant: 250),
+            
             signupButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            signupButton.centerYAnchor.constraint(equalTo: password.centerYAnchor, constant: 70),
+            signupButton.centerYAnchor.constraint(equalTo: confirmPassword.centerYAnchor, constant: 70),
             signupButton.heightAnchor.constraint(equalToConstant: 30),
-           signupButton.widthAnchor.constraint(equalToConstant:  90)
+            signupButton.widthAnchor.constraint(equalToConstant:  90)
             
         ]
         
