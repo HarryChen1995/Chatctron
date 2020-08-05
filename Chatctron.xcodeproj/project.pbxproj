@@ -8,6 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		24D14591781D40C8F8D8996E /* Pods_Chatctron.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A06B7B753BAE61D11BA89365 /* Pods_Chatctron.framework */; };
+		3105156824DB33FB004C8A5B /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105156724DB33FB004C8A5B /* ChatViewController.swift */; };
+		3105156A24DB34FA004C8A5B /* CustomTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105156924DB34FA004C8A5B /* CustomTabBarController.swift */; };
+		3105156C24DB388D004C8A5B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105156B24DB388D004C8A5B /* User.swift */; };
+		3105157224DB3CB9004C8A5B /* BaseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105157124DB3CB9004C8A5B /* BaseTableCell.swift */; };
+		3105157424DB3E60004C8A5B /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105157324DB3E60004C8A5B /* FriendCell.swift */; };
+		3105157624DB4EEE004C8A5B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105157524DB4EEE004C8A5B /* ProfileViewController.swift */; };
 		3110E30324D86EDC00813AE7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3110E30224D86EDC00813AE7 /* AppDelegate.swift */; };
 		3110E30524D86EDC00813AE7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3110E30424D86EDC00813AE7 /* SceneDelegate.swift */; };
 		3110E30C24D86EDE00813AE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3110E30B24D86EDE00813AE7 /* Assets.xcassets */; };
@@ -20,6 +26,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3105156724DB33FB004C8A5B /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		3105156924DB34FA004C8A5B /* CustomTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTabBarController.swift; sourceTree = "<group>"; };
+		3105156B24DB388D004C8A5B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		3105157124DB3CB9004C8A5B /* BaseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableCell.swift; sourceTree = "<group>"; };
+		3105157324DB3E60004C8A5B /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
+		3105157524DB4EEE004C8A5B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		3110E2FF24D86EDC00813AE7 /* Chatctron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chatctron.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3110E30224D86EDC00813AE7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3110E30424D86EDC00813AE7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -48,6 +60,44 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3105156D24DB38A7004C8A5B /* dataModel */ = {
+			isa = PBXGroup;
+			children = (
+				3105156B24DB388D004C8A5B /* User.swift */,
+			);
+			path = dataModel;
+			sourceTree = "<group>";
+		};
+		3105156E24DB38FC004C8A5B /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				318A4AC824D9C34B00E28D09 /* HomeViewController.swift */,
+				3110E31624D86F9C00813AE7 /* LoginViewController.swift */,
+				3110E31F24D88B9E00813AE7 /* SignUpViewController.swift */,
+				3105156924DB34FA004C8A5B /* CustomTabBarController.swift */,
+				3105156724DB33FB004C8A5B /* ChatViewController.swift */,
+				3105157524DB4EEE004C8A5B /* ProfileViewController.swift */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		3105156F24DB3962004C8A5B /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				3110E32124D89E5900813AE7 /* ProgressWindow.swift */,
+			);
+			path = Helper;
+			sourceTree = "<group>";
+		};
+		3105157024DB3C8E004C8A5B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				3105157124DB3CB9004C8A5B /* BaseTableCell.swift */,
+				3105157324DB3E60004C8A5B /* FriendCell.swift */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
 		3110E2F624D86EDB00813AE7 = {
 			isa = PBXGroup;
 			children = (
@@ -69,10 +119,10 @@
 		3110E30124D86EDC00813AE7 /* Chatctron */ = {
 			isa = PBXGroup;
 			children = (
-				3110E32124D89E5900813AE7 /* ProgressWindow.swift */,
-				3110E31624D86F9C00813AE7 /* LoginViewController.swift */,
-				318A4AC824D9C34B00E28D09 /* HomeViewController.swift */,
-				3110E31F24D88B9E00813AE7 /* SignUpViewController.swift */,
+				3105157024DB3C8E004C8A5B /* Cell */,
+				3105156F24DB3962004C8A5B /* Helper */,
+				3105156E24DB38FC004C8A5B /* ViewController */,
+				3105156D24DB38A7004C8A5B /* dataModel */,
 				3110E30224D86EDC00813AE7 /* AppDelegate.swift */,
 				3110E30424D86EDC00813AE7 /* SceneDelegate.swift */,
 				3110E30B24D86EDE00813AE7 /* Assets.xcassets */,
@@ -217,9 +267,15 @@
 			files = (
 				3110E30324D86EDC00813AE7 /* AppDelegate.swift in Sources */,
 				3110E31724D86F9C00813AE7 /* LoginViewController.swift in Sources */,
+				3105156824DB33FB004C8A5B /* ChatViewController.swift in Sources */,
 				3110E32024D88B9E00813AE7 /* SignUpViewController.swift in Sources */,
+				3105156A24DB34FA004C8A5B /* CustomTabBarController.swift in Sources */,
 				3110E32224D89E5900813AE7 /* ProgressWindow.swift in Sources */,
+				3105157624DB4EEE004C8A5B /* ProfileViewController.swift in Sources */,
+				3105157424DB3E60004C8A5B /* FriendCell.swift in Sources */,
+				3105157224DB3CB9004C8A5B /* BaseTableCell.swift in Sources */,
 				3110E30524D86EDC00813AE7 /* SceneDelegate.swift in Sources */,
+				3105156C24DB388D004C8A5B /* User.swift in Sources */,
 				318A4AC924D9C34B00E28D09 /* HomeViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

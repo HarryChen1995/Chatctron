@@ -54,7 +54,7 @@ class LoginViewController : UIViewController , UITextFieldDelegate{
     }()
     
     @objc func login(){
-        
+        view.endEditing(true)
         if email.text == "" || password.text == "" {
             
             let alertTitle = "Incomplete Credential"
@@ -74,7 +74,6 @@ class LoginViewController : UIViewController , UITextFieldDelegate{
         }
         else {
         let progressWindow = ProgressWindow()
-            progressWindow.label = "Login Into Your Account"
             progressWindow.showProgress()
         Auth.auth().signIn(withEmail: email.text!, password: password.text!, completion: {
             (auth, err) in
@@ -116,7 +115,7 @@ class LoginViewController : UIViewController , UITextFieldDelegate{
     
     lazy var signupButton : UIButton = {
         let button = UIButton()
-        button.setTitle("Sign up", for: .normal)
+        button.setTitle("Sign Up", for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitleColor(.primaryColor, for: .normal)
         button.addTarget(self, action: #selector(goToSignupPage), for: .touchUpInside)
@@ -124,15 +123,25 @@ class LoginViewController : UIViewController , UITextFieldDelegate{
     }()
     
     @objc func goToSignupPage(){
+        view.endEditing(true)
         navigationController?.pushViewController(SignUpViewController(), animated: true)
     }
         
     override func viewWillAppear(_ animated: Bool) {
-        navigationController?.navigationBar.isHidden = true
+       navigationController?.navigationBar.isHidden = true
+        tabBarController?.tabBar.isHidden = true
     }
+    
+    @objc func dismissKeyboard(){
+        view.endEditing(true)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
+        
+        
 
         
         setupLoginPage()
@@ -156,12 +165,12 @@ class LoginViewController : UIViewController , UITextFieldDelegate{
             
             email.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             email.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant:-50),
-            email.heightAnchor.constraint(equalToConstant: 30),
-            email.widthAnchor.constraint(equalToConstant: 250),
+            email.heightAnchor.constraint(equalToConstant: 40),
+            email.widthAnchor.constraint(equalToConstant: 300),
             password.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            password.centerYAnchor.constraint(equalTo: email.centerYAnchor, constant: 50),
-            password.heightAnchor.constraint(equalToConstant: 30),
-            password.widthAnchor.constraint(equalToConstant: 250),
+            password.centerYAnchor.constraint(equalTo: email.centerYAnchor, constant: 70),
+            password.heightAnchor.constraint(equalToConstant: 40),
+            password.widthAnchor.constraint(equalToConstant: 300),
             loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loginButton.centerYAnchor.constraint(equalTo: password.centerYAnchor, constant: 70),
             loginButton.heightAnchor.constraint(equalToConstant: 30),

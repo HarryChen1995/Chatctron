@@ -7,7 +7,7 @@
 //
 
 import UIKit
-
+import Firebase
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -18,16 +18,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
-        window?.windowScene = windowScene
-        
+        window?.windowScene = windowScene        
+        UINavigationBar.appearance().tintColor =  .primaryColor
+        UINavigationBar.appearance().shadowImage = UIImage()
+        UITabBar.appearance().tintColor = .primaryColor
 
         
+        if let user = Auth.auth().currentUser {
+             let tabController = CustomTabBarController()
+             window?.rootViewController = tabController
+        } else {
+            
+            let loginVC = UINavigationController(rootViewController: LoginViewController())
+                window?.rootViewController = loginVC
+        }
         
-        UINavigationBar.appearance().tintColor = .white
-        UINavigationBar.appearance().barTintColor = UIColor.primaryColor
-        
-        let loginVC = UINavigationController(rootViewController: LoginViewController())
-        window?.rootViewController = loginVC
+
         window?.makeKeyAndVisible()
     }
 
