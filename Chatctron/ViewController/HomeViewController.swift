@@ -204,6 +204,7 @@ class HomeViewController : UITableViewController {
         tableView.isUserInteractionEnabled = true
         
         
+        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -240,14 +241,13 @@ class HomeViewController : UITableViewController {
      if let u = usersCache.object(forKey: "users") as? [User] , u.count != 0{
         users = u
        }else{
-        
+        self.users.removeAll()
         let db = Firestore.firestore()
         db.collection("users").getDocuments() { (querySnapshot, err) in
         if let err = err {
             print("Error getting documents: \(err)")
         } else {
             for document in querySnapshot!.documents {
-                self.users.removeAll()
                 if  document.documentID  != Auth.auth().currentUser?.uid{
                     
                     let data = document.data()
@@ -255,14 +255,14 @@ class HomeViewController : UITableViewController {
                     self.users.append(user)
                     
                 }
-                usersCache.setObject(self.users as NSArray, forKey: "users" as NSString)
-                self.tableView.reloadData()
             }
-            
+            self.tableView.reloadData()
+            usersCache.setObject(self.users as NSArray, forKey: "users" as NSString)
         }
+            
         
     }
-        
+    
         print(users.count)
         
         }
