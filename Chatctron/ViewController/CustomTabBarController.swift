@@ -13,13 +13,13 @@ class CustomTabBarController: UITabBarController {
         super.viewDidLoad()
         let homevc = UINavigationController(rootViewController: HomeViewController())
         homevc.tabBarItem.title = "Friends"
-        homevc.tabBarItem.image =  UIImage(named: "groups")
+        homevc.tabBarItem.image =  UIImage(named: "people")
         
         
         
         let chatvc = UINavigationController(rootViewController: ChatViewController())
         chatvc.tabBarItem.title = "Chats"
-        chatvc.tabBarItem.image =  UIImage(named: "people")
+        chatvc.tabBarItem.image =  UIImage(named: "chat")
  
         viewControllers = [
             homevc,

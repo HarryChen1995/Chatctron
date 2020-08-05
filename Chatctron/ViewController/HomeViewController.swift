@@ -54,6 +54,13 @@ class CustomTitleView : UIView {
         }
     }
     
+    lazy var editeButton : UIButton = {
+        let button  = UIButton()
+        button.setImage(UIImage(named: "edite")?.withRenderingMode(.alwaysTemplate), for: .normal)
+        button.tintColor = .primaryColor
+        return button
+    }()
+    
     
     let label: UILabel = {
         let label = UILabel()
@@ -81,14 +88,16 @@ class CustomTitleView : UIView {
         addSubview(label)
         addSubview(profileImageView)
         addSubview(titleLoadindicator)
+        addSubview(editeButton)
         addSubview(logoutButton)
         addSubview(imageLoadindicator)
         
 
-        addConstraintsWithFormat(format: "H:|-10-[v0(35)]-30-[v1(150)]-80-[v2(25)]", views: profileImageView, label, logoutButton)
+        addConstraintsWithFormat(format: "H:|-10-[v0(35)]-30-[v1(150)]-40-[v2(25)]-25-[v3(25)]", views: profileImageView, label, editeButton,logoutButton)
         addConstraintsWithFormat(format: "V:|-5-[v0(35)]", views: profileImageView)
         addConstraintsWithFormat(format: "V:|-5-[v0(35)]", views: label)
         addConstraintsWithFormat(format: "V:|-10-[v0(25)]", views: logoutButton)
+        addConstraintsWithFormat(format: "V:|-10-[v0(25)]", views: editeButton)
         
         
         let constraints = [
@@ -194,7 +203,7 @@ class HomeViewController : UITableViewController {
         view.backgroundColor = .white
         let titleView = CustomTitleView()
         titleView.translatesAutoresizingMaskIntoConstraints = false
-        titleView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 90)
+        titleView.frame = CGRect(x: 0, y: 0, width: view.frame.width-40, height: 90)
         titleView.navigationController = navigationController
         navigationItem.titleView = titleView
         tableView.tableFooterView = UIView()

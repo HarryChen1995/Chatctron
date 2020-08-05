@@ -1,6 +1,7 @@
 {
   "images" : [
     {
+      "filename" : "edite.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -9,7 +10,6 @@
       "scale" : "2x"
     },
     {
-      "filename" : "groups@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
