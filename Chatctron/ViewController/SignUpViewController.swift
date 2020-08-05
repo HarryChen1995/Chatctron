@@ -236,6 +236,7 @@ class SignUpViewController : UIViewController, UIImagePickerControllerDelegate, 
         navigationItem.title = "Create Your Account"
         navigationController?.navigationBar.titleTextAttributes  = [NSAttributedString.Key.foregroundColor:UIColor.primaryColor]
         navigationController?.navigationBar.addBlurEffectToNavBar()
+        tabBarController?.tabBar.isHidden = true
     }
     override func viewDidLoad() {
         super.viewDidLoad()

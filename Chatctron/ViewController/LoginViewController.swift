@@ -101,8 +101,8 @@ class LoginViewController : UIViewController , UITextFieldDelegate{
                 }
                 else{
                     
-                    let homeViewCV = HomeViewController()
-                    self.navigationController?.pushViewController(homeViewCV, animated: true)
+                    let tabbarCV = CustomTabBarController()
+                    self.navigationController?.pushViewController(tabbarCV, animated: true)
                 }
                 
             }
@@ -129,7 +129,7 @@ class LoginViewController : UIViewController , UITextFieldDelegate{
         
     override func viewWillAppear(_ animated: Bool) {
        navigationController?.navigationBar.isHidden = true
-        tabBarController?.tabBar.isHidden = true
+       tabBarController?.tabBar.isHidden = true
     }
     
     @objc func dismissKeyboard(){
