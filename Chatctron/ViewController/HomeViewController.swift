@@ -15,7 +15,7 @@ import FirebaseStorage
 let usersCache = NSCache<NSString, NSArray>()
 
 class HomeViewController : UITableViewController {
-        
+    
     let loadingIndicator: UIActivityIndicatorView  = {
         let  indicator = UIActivityIndicatorView()
         indicator.style = .large
@@ -76,6 +76,9 @@ class HomeViewController : UITableViewController {
     let ID = "Friend"
     var users: [User] = []
     var userID:String?
+    
+    
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
@@ -84,17 +87,27 @@ class HomeViewController : UITableViewController {
         tabBarController?.tabBar.isHidden = false
     }
     
+    let sideMenu = SideMenu()
+    @objc func displaySideMenu (){
+        
+        sideMenu.showSideMenu()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.title = "Friends"
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "setting")?.withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(displaySideMenu))
+        
         tableView.tableFooterView = UIView()
         tableView.register(FriendCell.self, forCellReuseIdentifier: ID)
         setupLoadingIndicator()
         fetchUsers()
-  
+        
         
     }
+    
+    
     private func setupLoadingIndicator() {
         view.addSubview(loadingIndicator)
         loadingIndicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
