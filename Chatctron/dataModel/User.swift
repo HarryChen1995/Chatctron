@@ -14,6 +14,7 @@ class User : NSObject{
     var firstName: String
     var lastName: String
     var email: String
+    var profileImage:UIImage?
     
     init(userID:String, firstName:String, lastName:String, email:String){
         self.userID = userID

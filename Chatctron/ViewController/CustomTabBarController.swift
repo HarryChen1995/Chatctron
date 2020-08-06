@@ -20,11 +20,11 @@ class CustomTabBarController: UITabBarController {
         let chatvc = UINavigationController(rootViewController: ChatViewController())
         chatvc.tabBarItem.title = "Chats"
         chatvc.tabBarItem.image =  UIImage(named: "chat")
- 
+        
         viewControllers = [
             homevc,
             chatvc
-    ]
+        ]
         
     }
     

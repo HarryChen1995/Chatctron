@@ -16,16 +16,16 @@ class  ProgressWindow : NSObject {
         return view
     }()
     
-
+    
     let activityIndicator: UIActivityIndicatorView =  {
-       let indicator  = UIActivityIndicatorView()
+        let indicator  = UIActivityIndicatorView()
         indicator.translatesAutoresizingMaskIntoConstraints = false
         indicator.style = .large
         indicator.color = .white
         indicator.startAnimating()
         return indicator
     }()
-
+    
     func setupBlackView (){
         blackView.addSubview(activityIndicator)
         let constraints = [

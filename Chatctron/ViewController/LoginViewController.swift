@@ -73,41 +73,41 @@ class LoginViewController : UIViewController , UITextFieldDelegate{
             present(alertController, animated: true, completion: nil)
         }
         else {
-        let progressWindow = ProgressWindow()
+            let progressWindow = ProgressWindow()
             progressWindow.showProgress()
-        Auth.auth().signIn(withEmail: email.text!, password: password.text!, completion: {
-            (auth, err) in
-            progressWindow.dissmisProgress()
-            if err != nil {
-                
-                let attributedString = NSAttributedString(string: "Login Failed !", attributes: [NSAttributedString.Key.foregroundColor:UIColor.red])
-                let alertController = UIAlertController(title: "", message: err?.localizedDescription, preferredStyle: .alert)
-                alertController.setValue(attributedString, forKey: "attributedTitle")
-                alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(action) in
-                    self.email.text = ""
-                    self.password.text = ""
-                }))
-                self.present(alertController, animated: true, completion: nil)
-                
-            }else{
-                
-                if !auth!.user.isEmailVerified {
+            Auth.auth().signIn(withEmail: email.text!, password: password.text!, completion: {
+                (auth, err) in
+                progressWindow.dissmisProgress()
+                if err != nil {
                     
-                    let attributedString = NSAttributedString(string: "Email Verfication Required", attributes: [NSAttributedString.Key.foregroundColor:UIColor.red])
-                    let alertController = UIAlertController(title: "", message: "Please verify your email and try agian !", preferredStyle: .alert)
+                    let attributedString = NSAttributedString(string: "Login Failed !", attributes: [NSAttributedString.Key.foregroundColor:UIColor.red])
+                    let alertController = UIAlertController(title: "", message: err?.localizedDescription, preferredStyle: .alert)
                     alertController.setValue(attributedString, forKey: "attributedTitle")
-                    alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                    alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: {(action) in
+                        self.email.text = ""
+                        self.password.text = ""
+                    }))
                     self.present(alertController, animated: true, completion: nil)
-                }
-                else{
                     
-                    let tabbarCV = CustomTabBarController()
-                    self.navigationController?.pushViewController(tabbarCV, animated: true)
+                }else{
+                    
+                    if !auth!.user.isEmailVerified {
+                        
+                        let attributedString = NSAttributedString(string: "Email Verfication Required", attributes: [NSAttributedString.Key.foregroundColor:UIColor.red])
+                        let alertController = UIAlertController(title: "", message: "Please verify your email and try agian !", preferredStyle: .alert)
+                        alertController.setValue(attributedString, forKey: "attributedTitle")
+                        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: nil))
+                        self.present(alertController, animated: true, completion: nil)
+                    }
+                    else{
+                        
+                        let tabbarCV = CustomTabBarController()
+                        self.navigationController?.pushViewController(tabbarCV, animated: true)
+                    }
+                    
                 }
                 
-            }
-        
-        })
+            })
         }
         
         
@@ -126,10 +126,10 @@ class LoginViewController : UIViewController , UITextFieldDelegate{
         view.endEditing(true)
         navigationController?.pushViewController(SignUpViewController(), animated: true)
     }
-        
+    
     override func viewWillAppear(_ animated: Bool) {
-       navigationController?.navigationBar.isHidden = true
-       tabBarController?.tabBar.isHidden = true
+        navigationController?.navigationBar.isHidden = true
+        tabBarController?.tabBar.isHidden = true
     }
     
     @objc func dismissKeyboard(){
@@ -142,7 +142,7 @@ class LoginViewController : UIViewController , UITextFieldDelegate{
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
         
         
-
+        
         
         setupLoginPage()
         
@@ -157,26 +157,27 @@ class LoginViewController : UIViewController , UITextFieldDelegate{
         view.addSubview(signupButton)
         let constraints = [
             
-            logView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            logView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 160),
+            logView.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            logView.centerYAnchor.constraint(equalTo:
+                email.centerYAnchor, constant: -90),
             logView.widthAnchor.constraint(equalToConstant: 100),
             logView.heightAnchor.constraint(equalToConstant: 100),
             
             
-            email.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            email.centerYAnchor.constraint(equalTo: view.centerYAnchor, constant:-50),
+            email.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            email.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor, constant:-50),
             email.heightAnchor.constraint(equalToConstant: 40),
             email.widthAnchor.constraint(equalToConstant: 300),
-            password.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            password.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             password.centerYAnchor.constraint(equalTo: email.centerYAnchor, constant: 70),
             password.heightAnchor.constraint(equalToConstant: 40),
             password.widthAnchor.constraint(equalToConstant: 300),
-            loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            loginButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
             loginButton.centerYAnchor.constraint(equalTo: password.centerYAnchor, constant: 70),
             loginButton.heightAnchor.constraint(equalToConstant: 30),
             loginButton.widthAnchor.constraint(equalToConstant:  70),
-            signupButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            signupButton.centerYAnchor.constraint(equalTo: view.bottomAnchor, constant: -100),
+            signupButton.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor),
+            signupButton.centerYAnchor.constraint(equalTo: loginButton.bottomAnchor, constant: 50),
             signupButton.heightAnchor.constraint(equalToConstant: 30),
             signupButton.widthAnchor.constraint(equalToConstant:  70),
         ]
@@ -185,7 +186,7 @@ class LoginViewController : UIViewController , UITextFieldDelegate{
         
     }
     
-
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

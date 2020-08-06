@@ -21,5 +21,5 @@ class BaseTableCell: UITableViewCell {
     func setupCell(){
         
     }
-
+    
 }

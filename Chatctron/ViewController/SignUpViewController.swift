@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 
 class SignUpViewController : UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate {
-
+    
     lazy var profileImage : UIImageView  = {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -22,7 +22,7 @@ class SignUpViewController : UIViewController, UIImagePickerControllerDelegate, 
         return imageView
     }()
     let selectLabel : UILabel = {
-       let label = UILabel()
+        let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "Select Profile Picture"
         label.font = UIFont.systemFont(ofSize: 16)
@@ -31,7 +31,7 @@ class SignUpViewController : UIViewController, UIImagePickerControllerDelegate, 
     @objc func uploadPhoto (_ sender: UITapGestureRecognizer){
         email.resignFirstResponder()
         password.resignFirstResponder()
-
+        
         let picker = UIImagePickerController()
         picker.allowsEditing = true
         picker.sourceType = .photoLibrary
@@ -45,13 +45,13 @@ class SignUpViewController : UIViewController, UIImagePickerControllerDelegate, 
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let image = info[UIImagePickerController.InfoKey.editedImage]  as? UIImage{
-        profileImage.image = image
+            profileImage.image = image
         }
         dismiss(animated: true, completion: nil)
         
         
     }
-
+    
     lazy var  email: UITextField =  {
         let textfield = UITextField()
         textfield.borderStyle = .roundedRect
@@ -118,7 +118,7 @@ class SignUpViewController : UIViewController, UIImagePickerControllerDelegate, 
                 
             }
             else if  firstName.text != "" && LastName.text == ""{
-
+                
                 alertMessage = "Please enter your last name"
                 
             }
@@ -139,99 +139,99 @@ class SignUpViewController : UIViewController, UIImagePickerControllerDelegate, 
             present(alertController, animated: true, completion: nil)
         }
         else {
-        let progressWindow = ProgressWindow()
-        progressWindow.showProgress()
-        Auth.auth().createUser(withEmail: email.text!, password: password.text!, completion: {
-            
-            (auth, err) in
-            if err != nil {
-                let attributedString = NSAttributedString(string: "Sign Up Failed !", attributes: [
-                    NSAttributedString.Key.foregroundColor : UIColor.red
-                ])
-                let alertController = UIAlertController(title: "" , message:                err!.localizedDescription, preferredStyle: .alert)
-                alertController.setValue(attributedString, forKey: "attributedTitle")
-                alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
-                    self.email.text = ""
-                    self.password.text = ""
-                    self.confirmPassword.text = ""
-                    self.firstName.text = ""
-                    self.LastName.text = ""
-                }))
-                progressWindow.dissmisProgress()
-                self.present(alertController, animated: true, completion: nil)
-            }else{
+            let progressWindow = ProgressWindow()
+            progressWindow.showProgress()
+            Auth.auth().createUser(withEmail: email.text!, password: password.text!, completion: {
                 
-                let storageRef = Storage.storage().reference()
-                let userImageRef = storageRef.child("image/\(auth!.user.uid).png")
-                
-                if let data = self.profileImage.image!.pngData() {
+                (auth, err) in
+                if err != nil {
+                    let attributedString = NSAttributedString(string: "Sign Up Failed !", attributes: [
+                        NSAttributedString.Key.foregroundColor : UIColor.red
+                    ])
+                    let alertController = UIAlertController(title: "" , message:                err!.localizedDescription, preferredStyle: .alert)
+                    alertController.setValue(attributedString, forKey: "attributedTitle")
+                    alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                        self.email.text = ""
+                        self.password.text = ""
+                        self.confirmPassword.text = ""
+                        self.firstName.text = ""
+                        self.LastName.text = ""
+                    }))
+                    progressWindow.dissmisProgress()
+                    self.present(alertController, animated: true, completion: nil)
+                }else{
                     
-                    userImageRef.putData(data, metadata: nil){
-                        (metadata ,error) in
-                        guard let metadata = metadata else {
-                           return
-                         }
-                        if error != nil {
-                            
-                            
-                            let attributedString = NSAttributedString(string: "Can Not upload Profile Image !", attributes: [
-                                NSAttributedString.Key.foregroundColor : UIColor.red
-                            ])
-                            let alertController = UIAlertController(title: "" , message:                err!.localizedDescription, preferredStyle: .alert)
-                            alertController.setValue(attributedString, forKey: "attributedTitle")
-                            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
-                                
-                                self.profileImage.image = UIImage(named: "placeholder")
-                            }))
-                            progressWindow.dissmisProgress()
-                            self.present(alertController, animated: true, completion: nil)
-                            
-                        }else {
-                            
-                            
-                            let db = Firestore.firestore()
-                            db.collection("users").document("\(auth!.user.uid)") .setData(
-                                
-                                [
-                                    "email": self.email.text!,
-                                    "firstName":  self.firstName.text!,
-                                    "lastName": self.LastName.text!
-                                
-                                ]
-                                ){ err in
-                                if let err = err {
-                                    print("Error adding document: \(err)")
-                                }
+                    let storageRef = Storage.storage().reference()
+                    let userImageRef = storageRef.child("image/\(auth!.user.uid).png")
+                    
+                    if let data = self.profileImage.image!.pngData() {
+                        
+                        userImageRef.putData(data, metadata: nil){
+                            (metadata ,error) in
+                            guard let metadata = metadata else {
+                                return
                             }
-                            
-                            
-                            auth?.user.sendEmailVerification(completion: {
-                                (result) in
-                                let alertController = UIAlertController(title: "Verification Email Sent" , message: "Please verify your email account to log in", preferredStyle: .alert)
-                                alertController.addAction(UIAlertAction(title: "Ok", style:.default, handler:  { (action) in
-                                    self.navigationController?.popViewController(animated: true)
+                            if error != nil {
+                                
+                                
+                                let attributedString = NSAttributedString(string: "Can Not upload Profile Image !", attributes: [
+                                    NSAttributedString.Key.foregroundColor : UIColor.red
+                                ])
+                                let alertController = UIAlertController(title: "" , message:                err!.localizedDescription, preferredStyle: .alert)
+                                alertController.setValue(attributedString, forKey: "attributedTitle")
+                                alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler: { (action) in
+                                    
+                                    self.profileImage.image = UIImage(named: "placeholder")
                                 }))
                                 progressWindow.dissmisProgress()
                                 self.present(alertController, animated: true, completion: nil)
-                            })
-                            
-                            
-                            
+                                
+                            }else {
+                                
+                                
+                                let db = Firestore.firestore()
+                                db.collection("users").document("\(auth!.user.uid)") .setData(
+                                    
+                                    [
+                                        "email": self.email.text!,
+                                        "firstName":  self.firstName.text!,
+                                        "lastName": self.LastName.text!
+                                        
+                                    ]
+                                ){ err in
+                                    if let err = err {
+                                        print("Error adding document: \(err)")
+                                    }
+                                }
+                                
+                                
+                                auth?.user.sendEmailVerification(completion: {
+                                    (result) in
+                                    let alertController = UIAlertController(title: "Verification Email Sent" , message: "Please verify your email account to log in", preferredStyle: .alert)
+                                    alertController.addAction(UIAlertAction(title: "Ok", style:.default, handler:  { (action) in
+                                        self.navigationController?.popViewController(animated: true)
+                                    }))
+                                    progressWindow.dissmisProgress()
+                                    self.present(alertController, animated: true, completion: nil)
+                                })
+                                
+                                
+                                
+                            }
                         }
                     }
+                    
+                    
+                    
+                    
                 }
-            
                 
                 
-                
-            }
-            
-            
-        })
+            })
         }
     }
     override func viewWillAppear(_ animated: Bool) {
-       super.viewWillAppear(animated)
+        super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = false
         navigationItem.title = "Create Your Account"
         navigationController?.navigationBar.titleTextAttributes  = [NSAttributedString.Key.foregroundColor:UIColor.primaryColor]
@@ -253,7 +253,11 @@ class SignUpViewController : UIViewController, UIImagePickerControllerDelegate, 
         let scrollView = UIScrollView()
         scrollView.isScrollEnabled = true
         view.addSubview(scrollView)
-        scrollView.frame = view.frame
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        scrollView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        scrollView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        scrollView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
         scrollView.contentSize = CGSize(width: view.frame.width, height: view.frame.height+150)
         
         scrollView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
@@ -275,7 +279,7 @@ class SignUpViewController : UIViewController, UIImagePickerControllerDelegate, 
             selectLabel.centerYAnchor.constraint(equalTo: profileImage.bottomAnchor, constant: 15),
             
             email.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
-            email.centerYAnchor.constraint(equalTo: scrollView.centerYAnchor, constant:-100),
+            email.centerYAnchor.constraint(equalTo: profileImage.centerYAnchor, constant: 150),
             email.heightAnchor.constraint(equalToConstant: 40),
             email.widthAnchor.constraint(equalToConstant: 300),
             
@@ -316,7 +320,7 @@ class SignUpViewController : UIViewController, UIImagePickerControllerDelegate, 
         return true
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
-     // toDo : validate input
+        // toDo : validate input
     }
     
 }

@@ -17,10 +17,10 @@ class ChatViewController : UITableViewController {
         navigationController?.navigationBar.addBlurEffectToNavBar()
         tabBarController?.tabBar.isHidden = false
     }
-     override func viewDidLoad(){
+    override func viewDidLoad(){
         super.viewDidLoad()
         tableView.tableFooterView = UIView()
     }
     
-
+    
 }

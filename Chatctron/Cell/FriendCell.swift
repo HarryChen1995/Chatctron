@@ -18,37 +18,13 @@ class FriendCell : BaseTableCell {
         didSet {
             userName.backgroundColor = .clear
             userName.text = user!.firstName + " " + user!.lastName
-            fetchProfileImage(userID: user!.userID)
+            profileImageView.image = user!.profileImage
         }
     }
     
-    
-    private func fetchProfileImage(userID:String){
-        
-        if let image = profileimageCache.object(forKey: "\(userID).png" as NSString)
-        {
-            profileImageView.backgroundColor = .clear
-            profileImageView.image = image
-        }
-        else {
-        let ref = Storage.storage().reference()
-        let pathref = ref.child("image/\(userID).png")
-        pathref.getData(maxSize: .max) { (data, error) in
-        if let error = error {
-            print(error)
-        } else {
-            let image = UIImage(data: data!)?.withRenderingMode(.alwaysOriginal)
-            profileimageCache.setObject(image!, forKey: "\(userID).png" as NSString)
-            self.profileImageView.backgroundColor = .clear
-            self.profileImageView.image = image
-            
-            }}
-        }
-        
-    }
     
     let profileImageView: UIImageView = {
-       let imageView = UIImageView()
+        let imageView = UIImageView()
         imageView.layer.cornerRadius = 25
         imageView.layer.masksToBounds = true
         imageView.backgroundColor = .primaryColor
@@ -56,7 +32,7 @@ class FriendCell : BaseTableCell {
     }()
     
     let userName : UILabel = {
-       
+        
         let label = UILabel()
         label.textColor = .primaryColor
         label.backgroundColor = .primaryColor

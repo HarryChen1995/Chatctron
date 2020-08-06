@@ -13,10 +13,11 @@ class ProfileViewController: UIViewController {
     var lastName: String?
     var userID: String?
     var email: String?
+    var profileImage:UIImage?
     lazy var  profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.backgroundColor = .primaryColor
-        imageView.image = profileimageCache.object(forKey: "\(userID!).png" as NSString)
+        imageView.image = profileImage!
         imageView.layer.cornerRadius = 50
         imageView.layer.masksToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
