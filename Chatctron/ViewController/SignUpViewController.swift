@@ -329,7 +329,7 @@ extension UINavigationBar {
         
         isTranslucent = true
         setBackgroundImage(UIImage(), for: .default)
-        let visualEffectView  = UIVisualEffectView(effect: UIBlurEffect(style: .regular))
+        let visualEffectView  = UIVisualEffectView(effect: UIBlurEffect(style: .light))
         var bound = bounds
         if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
             if let statusBarHeight = window.windowScene?.statusBarManager?.statusBarFrame.height {
