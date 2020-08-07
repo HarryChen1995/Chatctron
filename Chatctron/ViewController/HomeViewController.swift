@@ -30,8 +30,20 @@ class HomeViewController : UITableViewController {
         return view
     }()
     
-    
+    func deleteAccount(){
+        
+        let deletealertController = UIAlertController(title: "" , message: "", preferredStyle: .alert)
+        let message = NSAttributedString(string: "Are you sure that you want to delete your account?", attributes: [NSAttributedString.Key.font:UIFont.boldSystemFont(ofSize: 16)])
+        deletealertController.setValue(message, forKey: "attributedMessage")
+        deletealertController.addAction(UIAlertAction(title: "No", style:.cancel, handler:  nil))
+        deletealertController.addAction(UIAlertAction(title: "Yes", style:.destructive, handler:  { (action) in
+            self.deleteCurrentUser()
+        }))
+        self.present(deletealertController, animated: true, completion: nil)
+    }
     func deleteCurrentUser(){
+        
+        
         let progressWindow = ProgressWindow()
         progressWindow.showProgress()
         let user = Auth.auth().currentUser
@@ -40,48 +52,48 @@ class HomeViewController : UITableViewController {
         
         
         let db = Firestore.firestore()
-        db.collection("users").document("\(userId!)").delete() { err in
-            if let err = err {
-                print(err)
+        
+        user?.delete { error in
+            if let err = error {
+                let attributedString = NSAttributedString(string: "Delete Your Accouunt Failed!", attributes: [
+                    NSAttributedString.Key.foregroundColor : UIColor.red
+                ])
+                let alertController = UIAlertController(title: "" , message:                err.localizedDescription, preferredStyle: .alert)
+                alertController.setValue(attributedString, forKey: "attributedTitle")
+                alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler:nil))
+                progressWindow.dissmisProgress()
+                self.present(alertController, animated: true, completion: nil)
             } else {
-            }
-            
-            user?.delete { error in
-                if let err = error {
-                    let attributedString = NSAttributedString(string: "Delete Your Accouunt Failed!", attributes: [
-                        NSAttributedString.Key.foregroundColor : UIColor.red
-                    ])
-                    let alertController = UIAlertController(title: "" , message:                err.localizedDescription, preferredStyle: .alert)
-                    alertController.setValue(attributedString, forKey: "attributedTitle")
-                    alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler:nil))
-                    progressWindow.dissmisProgress()
-                    self.present(alertController, animated: true, completion: nil)
-                } else {
-                    
-                    
-                    // delete profile picture
-                    let desertRef = Storage.storage().reference().child("image/\(userId!).png")
-                    desertRef.delete { error in
-                        if let err = error {
+                
+                
+                // delete profile picture
+                let desertRef = Storage.storage().reference().child("image/\(userId!).png")
+                desertRef.delete { error in
+                    if let err = error {
+                        
+                        let attributedString = NSAttributedString(string: "Delete Your Profile Image Failed!", attributes: [
+                            NSAttributedString.Key.foregroundColor : UIColor.red
+                        ])
+                        let alertController = UIAlertController(title: "" , message:                err.localizedDescription, preferredStyle: .alert)
+                        alertController.setValue(attributedString, forKey: "attributedTitle")
+                        alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler:nil))
+                        progressWindow.dissmisProgress()
+                        self.present(alertController, animated: true, completion: nil)
+                    } else {
+                        
+                        db.collection("users").document("\(userId!)").delete() { err in
+                            if let err = err {
+                                print(err)
+                            } else {
+                                let alertController = UIAlertController(title: "Deletion Success" , message: "Your acount has been successfully deleted, sorry to see you go! ", preferredStyle: .alert)
+                                alertController.addAction(UIAlertAction(title: "Ok", style:.default, handler:  { (action) in
+                                    let loginVC = LoginViewController()
+                                    self.navigationController?.pushViewController(loginVC, animated: true)
+                                }))
+                                progressWindow.dissmisProgress()
+                                self.present(alertController, animated: true, completion: nil)
+                            }
                             
-                            let attributedString = NSAttributedString(string: "Delete Your Profile Image Failed!", attributes: [
-                                NSAttributedString.Key.foregroundColor : UIColor.red
-                            ])
-                            let alertController = UIAlertController(title: "" , message:                err.localizedDescription, preferredStyle: .alert)
-                            alertController.setValue(attributedString, forKey: "attributedTitle")
-                            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler:nil))
-                            progressWindow.dissmisProgress()
-                            self.present(alertController, animated: true, completion: nil)
-                        } else {
-                            
-                            
-                            let alertController = UIAlertController(title: "Deletion Success" , message: "Your acount has been successfully deleted, sorry to see you go! ", preferredStyle: .alert)
-                            alertController.addAction(UIAlertAction(title: "Ok", style:.default, handler:  { (action) in
-                                let loginVC = LoginViewController()
-                                self.navigationController?.pushViewController(loginVC, animated: true)
-                            }))
-                            progressWindow.dissmisProgress()
-                            self.present(alertController, animated: true, completion: nil)
                             
                         }
                         

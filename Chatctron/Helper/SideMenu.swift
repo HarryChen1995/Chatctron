@@ -63,7 +63,7 @@ class Menu : UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICol
         
         if indexPath.item == 3{
             deletgate?.dismissSideMenu()
-            deletgate?.delegate?.deleteCurrentUser()
+            deletgate?.delegate?.deleteAccount()
         }
         else if indexPath.item == 4{
             deletgate?.dismissSideMenu()
