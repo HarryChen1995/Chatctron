@@ -24,6 +24,13 @@ class HomeViewController : UITableViewController {
         return indicator
     }()
     
+    let loadingView:UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private func fetchUserProfileImage (userID:String, completion: @escaping(UIImage)->Void){
         let ref = Storage.storage().reference()
         let pathref = ref.child("image/\(userID).png")
@@ -35,6 +42,7 @@ class HomeViewController : UITableViewController {
                 let image = UIImage(data: data!)?.withRenderingMode(.alwaysOriginal)
                 completion(image!)
                 self.tableView.reloadData()
+                self.loadingView.isHidden = true
             }}
     }
     private func fetchUsers(){
@@ -60,7 +68,6 @@ class HomeViewController : UITableViewController {
                         }
                     }
                     usersCache.setObject(self.users as NSArray, forKey: "users" as NSString)
-                    self.loadingIndicator.stopAnimating()
                     self.tableView.reloadData()
                     
                 }
@@ -92,26 +99,42 @@ class HomeViewController : UITableViewController {
         sideMenu.showSideMenu()
     }
     
+    @objc func logout(){
+        do {
+            try Auth.auth().signOut()
+            let loginVC = LoginViewController()
+            navigationController?.pushViewController(loginVC, animated: true)
+        }catch{
+            print(error)
+            return
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         sideMenu.setup()
         view.backgroundColor = .white
         navigationItem.title = "Friends"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "setting")?.withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(displaySideMenu))
-        
+        navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(named:"exit")?.withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(logout)),editButtonItem]
         tableView.tableFooterView = UIView()
         tableView.register(FriendCell.self, forCellReuseIdentifier: ID)
-        setupLoadingIndicator()
+        setupLoadingView()
         fetchUsers()
         
         
     }
     
     
-    private func setupLoadingIndicator() {
-        view.addSubview(loadingIndicator)
-        loadingIndicator.centerXAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerXAnchor).isActive = true
-        loadingIndicator.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.centerYAnchor).isActive = true
+    private func setupLoadingView() {
+        view.addSubview(loadingView)
+        loadingView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        loadingView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        loadingView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        loadingView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        
+        loadingView.addSubview(loadingIndicator)
+        loadingIndicator.centerXAnchor.constraint(equalTo: loadingView.centerXAnchor).isActive = true
+        loadingIndicator.centerYAnchor.constraint(equalTo: loadingView.safeAreaLayoutGuide.centerYAnchor).isActive = true
         loadingIndicator.widthAnchor.constraint(equalToConstant: 40).isActive = true
         loadingIndicator.heightAnchor.constraint(equalTo: loadingIndicator.widthAnchor).isActive = true
         
