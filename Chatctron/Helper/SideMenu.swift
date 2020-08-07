@@ -29,12 +29,15 @@ class SideMenu {
     lazy var blackView: UIView = {
         let view = UIView()
         view.backgroundColor = UIColor(white: 0, alpha: 0.5)
+        view.alpha = 0
         view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissSideMenu)))
         return view
     }()
     
-    let menu = Menu()
-    func showSideMenu(){
+    var widthConstraining: NSLayoutConstraint?
+    let menuWidth:CGFloat = 200
+    func setup(){
+        
         if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
             window.addSubview(blackView)
             window.addSubview(menu)
@@ -43,24 +46,42 @@ class SideMenu {
             blackView.bottomAnchor.constraint(equalTo: window.bottomAnchor).isActive = true
             blackView.leadingAnchor.constraint(equalTo: window.leadingAnchor).isActive = true
             blackView.trailingAnchor.constraint(equalTo: window.trailingAnchor).isActive = true
-            let menuWidth = window.frame.size.width * 0.5
-            menu.frame = CGRect(x: -menuWidth, y: 0, width: menuWidth, height: window.frame.size.height)
-            UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations:
-                {
-                    self.blackView.alpha = 1
-                    self.menu.frame = CGRect(x: 0, y: 0, width: menuWidth, height: window.frame.size.height)
-            }
-                , completion: nil)
+            
+            menu.translatesAutoresizingMaskIntoConstraints = false
+            menu.topAnchor.constraint(equalTo: window.topAnchor).isActive = true
+            menu.bottomAnchor.constraint(equalTo: window.bottomAnchor).isActive = true
+            menu.leadingAnchor.constraint(equalTo: window.leadingAnchor).isActive = true
+            widthConstraining =  menu.trailingAnchor.constraint(equalTo: window.leadingAnchor)
+            widthConstraining?.isActive = true
         }
-        
-        
+    }
+    let menu = Menu()
+    func showSideMenu(){
+        self.widthConstraining?.constant = self.menuWidth
+        UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations:
+            {
+                
+                self.blackView.alpha = 1
+                if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
+                    window.layoutIfNeeded()
+                }
+                
+        }
+            , completion: nil)
     }
     
+    
+    
+    
     @objc func dismissSideMenu() {
+        widthConstraining?.constant = 0
         UIView.animate(withDuration: 2, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations:
             {
                 self.blackView.alpha = 0
-                self.menu.frame = CGRect(x: -self.menu.frame.width, y: 0, width: self.menu.frame.width, height: self.menu.frame.height)
+                if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
+                    window.layoutIfNeeded()
+                }
+                
                 
         }
             , completion: nil)

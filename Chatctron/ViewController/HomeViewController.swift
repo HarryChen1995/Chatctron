@@ -89,12 +89,12 @@ class HomeViewController : UITableViewController {
     
     let sideMenu = SideMenu()
     @objc func displaySideMenu (){
-        
         sideMenu.showSideMenu()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        sideMenu.setup()
         view.backgroundColor = .white
         navigationItem.title = "Friends"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "setting")?.withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(displaySideMenu))
