@@ -10,8 +10,6 @@ import UIKit
 import Firebase
 import FirebaseStorage
 
-let profileimageCache  =  NSCache<NSString, UIImage>()
-
 class FriendCell : BaseTableCell {
     
     var user: User? {

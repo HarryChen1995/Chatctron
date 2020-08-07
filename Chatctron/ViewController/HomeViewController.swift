@@ -13,7 +13,6 @@ import FirebaseAuth
 import FirebaseStorage
 
 let usersCache = NSCache<NSString, NSArray>()
-
 class HomeViewController : UITableViewController {
     
     let loadingIndicator: UIActivityIndicatorView  = {
@@ -31,6 +30,68 @@ class HomeViewController : UITableViewController {
         return view
     }()
     
+    
+    func deleteCurrentUser(){
+        let progressWindow = ProgressWindow()
+        progressWindow.showProgress()
+        let user = Auth.auth().currentUser
+        let userId = user?.uid
+        
+        
+        
+        let db = Firestore.firestore()
+        db.collection("users").document("\(userId!)").delete() { err in
+            if let err = err {
+                print(err)
+            } else {
+            }
+            
+            user?.delete { error in
+                if let err = error {
+                    let attributedString = NSAttributedString(string: "Delete Your Accouunt Failed!", attributes: [
+                        NSAttributedString.Key.foregroundColor : UIColor.red
+                    ])
+                    let alertController = UIAlertController(title: "" , message:                err.localizedDescription, preferredStyle: .alert)
+                    alertController.setValue(attributedString, forKey: "attributedTitle")
+                    alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler:nil))
+                    progressWindow.dissmisProgress()
+                    self.present(alertController, animated: true, completion: nil)
+                } else {
+                    
+                    
+                    // delete profile picture
+                    let desertRef = Storage.storage().reference().child("image/\(userId!).png")
+                    desertRef.delete { error in
+                        if let err = error {
+                            
+                            let attributedString = NSAttributedString(string: "Delete Your Profile Image Failed!", attributes: [
+                                NSAttributedString.Key.foregroundColor : UIColor.red
+                            ])
+                            let alertController = UIAlertController(title: "" , message:                err.localizedDescription, preferredStyle: .alert)
+                            alertController.setValue(attributedString, forKey: "attributedTitle")
+                            alertController.addAction(UIAlertAction(title: "Ok", style: .default, handler:nil))
+                            progressWindow.dissmisProgress()
+                            self.present(alertController, animated: true, completion: nil)
+                        } else {
+                            
+                            
+                            let alertController = UIAlertController(title: "Deletion Success" , message: "Your acount has been successfully deleted, sorry to see you go! ", preferredStyle: .alert)
+                            alertController.addAction(UIAlertAction(title: "Ok", style:.default, handler:  { (action) in
+                                let loginVC = LoginViewController()
+                                self.navigationController?.pushViewController(loginVC, animated: true)
+                            }))
+                            progressWindow.dissmisProgress()
+                            self.present(alertController, animated: true, completion: nil)
+                            
+                        }
+                        
+                    }
+                }
+                
+            }
+        }
+    }
+    
     private func fetchUserProfileImage (userID:String, completion: @escaping(UIImage)->Void){
         let ref = Storage.storage().reference()
         let pathref = ref.child("image/\(userID).png")
@@ -42,13 +103,14 @@ class HomeViewController : UITableViewController {
                 let image = UIImage(data: data!)?.withRenderingMode(.alwaysOriginal)
                 completion(image!)
                 self.tableView.reloadData()
-                self.loadingView.isHidden = true
             }}
     }
+    
     private func fetchUsers(){
         if let u = usersCache.object(forKey: "users") as? [User] , u.count != 0{
             self.users = u
-            loadingIndicator.stopAnimating()
+            self.tableView.isUserInteractionEnabled = true
+            self.loadingView.isHidden = true
         }else{
             let db = Firestore.firestore()
             db.collection("users").getDocuments() { (querySnapshot, err) in
@@ -56,19 +118,31 @@ class HomeViewController : UITableViewController {
                     print("Error getting documents: \(err)")
                 } else {
                     for document in querySnapshot!.documents {
+                        let data = document.data()
+                        let user = User(userID: document.documentID, firstName: data["firstName"] as! String, lastName: data["lastName"] as! String, email: data["email"] as! String)
+                        self.fetchUserProfileImage(userID: user.userID,completion:  {
+                            (image) in
+                            user.profileImage = image
+                        }
+                        )
                         if document.documentID != Auth.auth().currentUser?.uid  {
-                            let data = document.data()
-                            let user = User(userID: document.documentID, firstName: data["firstName"] as! String, lastName: data["lastName"] as! String, email: data["email"] as! String)
-                            self.fetchUserProfileImage(userID: user.userID,completion:  {
-                                (image) in
-                                user.profileImage = image
-                            }
-                            )
+                            
                             self.users.append(user)
+                        }
+                        else{
+                            self.currentUser = user
+                            self.navigationItem.leftBarButtonItem?.isEnabled = true
+                            self.sideMenu.currentUser = self.currentUser
+                            self.sideMenu.delegate = self
+                            self.sideMenu.menu.collectionView.reloadData()
                         }
                     }
                     usersCache.setObject(self.users as NSArray, forKey: "users" as NSString)
+                    self.tableView.isUserInteractionEnabled = true
+                    self.loadingView.isHidden = true
                     self.tableView.reloadData()
+                    
+                    
                     
                 }
             }
@@ -78,13 +152,10 @@ class HomeViewController : UITableViewController {
     
     
     
-    
-    
     let ID = "Friend"
     var users: [User] = []
     var userID:String?
-    
-    
+    var currentUser:User?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -99,7 +170,7 @@ class HomeViewController : UITableViewController {
         sideMenu.showSideMenu()
     }
     
-    @objc func logout(){
+    func logout(){
         do {
             try Auth.auth().signOut()
             let loginVC = LoginViewController()
@@ -115,10 +186,11 @@ class HomeViewController : UITableViewController {
         view.backgroundColor = .white
         navigationItem.title = "Friends"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "setting")?.withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(displaySideMenu))
-        navigationItem.rightBarButtonItems = [UIBarButtonItem(image: UIImage(named:"exit")?.withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(logout)),editButtonItem]
+        navigationItem.leftBarButtonItem?.isEnabled = false
         tableView.tableFooterView = UIView()
         tableView.register(FriendCell.self, forCellReuseIdentifier: ID)
         setupLoadingView()
+        tableView.isUserInteractionEnabled = false
         fetchUsers()
         
         
@@ -154,13 +226,13 @@ class HomeViewController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = users[indexPath.row]
-        let profileviewvc =  ProfileViewController()
-        profileviewvc.firstName = user.firstName
-        profileviewvc.lastName = user.lastName
-        profileviewvc.userID  = user.userID
-        profileviewvc.email = user.email
-        profileviewvc.profileImage = user.profileImage
-        navigationController?.pushViewController(profileviewvc, animated: true)
+        let chatlogvc =  ChatLogController()
+        chatlogvc.firstName = user.firstName
+        chatlogvc.lastName = user.lastName
+        chatlogvc.userID  = user.userID
+        chatlogvc.email = user.email
+        chatlogvc.profileImage = user.profileImage
+        navigationController?.pushViewController( chatlogvc, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

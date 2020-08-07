@@ -26,7 +26,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         if let user = Auth.auth().currentUser {
              let tabController = CustomTabBarController()
-             window?.rootViewController = tabController
+            window?.rootViewController = tabController
         } else {
             
             let loginVC = UINavigationController(rootViewController: LoginViewController())

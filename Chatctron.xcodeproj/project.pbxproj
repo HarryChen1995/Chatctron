@@ -13,7 +13,7 @@
 		3105156C24DB388D004C8A5B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105156B24DB388D004C8A5B /* User.swift */; };
 		3105157224DB3CB9004C8A5B /* BaseTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105157124DB3CB9004C8A5B /* BaseTableCell.swift */; };
 		3105157424DB3E60004C8A5B /* FriendCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105157324DB3E60004C8A5B /* FriendCell.swift */; };
-		3105157624DB4EEE004C8A5B /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105157524DB4EEE004C8A5B /* ProfileViewController.swift */; };
+		3105157624DB4EEE004C8A5B /* ChatLogController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3105157524DB4EEE004C8A5B /* ChatLogController.swift */; };
 		3110E30324D86EDC00813AE7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3110E30224D86EDC00813AE7 /* AppDelegate.swift */; };
 		3110E30524D86EDC00813AE7 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3110E30424D86EDC00813AE7 /* SceneDelegate.swift */; };
 		3110E30C24D86EDE00813AE7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3110E30B24D86EDE00813AE7 /* Assets.xcassets */; };
@@ -24,6 +24,10 @@
 		3110E32224D89E5900813AE7 /* ProgressWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3110E32124D89E5900813AE7 /* ProgressWindow.swift */; };
 		315E8E6824DC942B000F6D31 /* SideMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 315E8E6724DC942B000F6D31 /* SideMenu.swift */; };
 		318A4AC924D9C34B00E28D09 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 318A4AC824D9C34B00E28D09 /* HomeViewController.swift */; };
+		31E9E82224DDD659003F2591 /* BaseCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E9E82124DDD659003F2591 /* BaseCollectionViewCell.swift */; };
+		31E9E82424DDD6A6003F2591 /* MenuItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E9E82324DDD6A6003F2591 /* MenuItemCell.swift */; };
+		31E9E82624DDDC00003F2591 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E9E82524DDDC00003F2591 /* ProfileCell.swift */; };
+		31E9E82824DDE407003F2591 /* InfoItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 31E9E82724DDE407003F2591 /* InfoItemCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +36,7 @@
 		3105156B24DB388D004C8A5B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		3105157124DB3CB9004C8A5B /* BaseTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTableCell.swift; sourceTree = "<group>"; };
 		3105157324DB3E60004C8A5B /* FriendCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendCell.swift; sourceTree = "<group>"; };
-		3105157524DB4EEE004C8A5B /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
+		3105157524DB4EEE004C8A5B /* ChatLogController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatLogController.swift; sourceTree = "<group>"; };
 		3110E2FF24D86EDC00813AE7 /* Chatctron.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Chatctron.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3110E30224D86EDC00813AE7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3110E30424D86EDC00813AE7 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -45,6 +49,10 @@
 		3110E32124D89E5900813AE7 /* ProgressWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressWindow.swift; sourceTree = "<group>"; };
 		315E8E6724DC942B000F6D31 /* SideMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenu.swift; sourceTree = "<group>"; };
 		318A4AC824D9C34B00E28D09 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		31E9E82124DDD659003F2591 /* BaseCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCollectionViewCell.swift; sourceTree = "<group>"; };
+		31E9E82324DDD6A6003F2591 /* MenuItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItemCell.swift; sourceTree = "<group>"; };
+		31E9E82524DDDC00003F2591 /* ProfileCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		31E9E82724DDE407003F2591 /* InfoItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoItemCell.swift; sourceTree = "<group>"; };
 		517042597008898B699CFE27 /* Pods-Chatctron.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatctron.debug.xcconfig"; path = "Target Support Files/Pods-Chatctron/Pods-Chatctron.debug.xcconfig"; sourceTree = "<group>"; };
 		A06B7B753BAE61D11BA89365 /* Pods_Chatctron.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Chatctron.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		D7084F312FBD3D8136625E81 /* Pods-Chatctron.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Chatctron.release.xcconfig"; path = "Target Support Files/Pods-Chatctron/Pods-Chatctron.release.xcconfig"; sourceTree = "<group>"; };
@@ -78,7 +86,7 @@
 				3110E31F24D88B9E00813AE7 /* SignUpViewController.swift */,
 				3105156924DB34FA004C8A5B /* CustomTabBarController.swift */,
 				3105156724DB33FB004C8A5B /* ChatViewController.swift */,
-				3105157524DB4EEE004C8A5B /* ProfileViewController.swift */,
+				3105157524DB4EEE004C8A5B /* ChatLogController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -97,6 +105,10 @@
 			children = (
 				3105157124DB3CB9004C8A5B /* BaseTableCell.swift */,
 				3105157324DB3E60004C8A5B /* FriendCell.swift */,
+				31E9E82124DDD659003F2591 /* BaseCollectionViewCell.swift */,
+				31E9E82324DDD6A6003F2591 /* MenuItemCell.swift */,
+				31E9E82524DDDC00003F2591 /* ProfileCell.swift */,
+				31E9E82724DDE407003F2591 /* InfoItemCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -269,16 +281,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				3110E30324D86EDC00813AE7 /* AppDelegate.swift in Sources */,
+				31E9E82224DDD659003F2591 /* BaseCollectionViewCell.swift in Sources */,
 				3110E31724D86F9C00813AE7 /* LoginViewController.swift in Sources */,
+				31E9E82424DDD6A6003F2591 /* MenuItemCell.swift in Sources */,
+				31E9E82824DDE407003F2591 /* InfoItemCell.swift in Sources */,
 				3105156824DB33FB004C8A5B /* ChatViewController.swift in Sources */,
 				3110E32024D88B9E00813AE7 /* SignUpViewController.swift in Sources */,
 				3105156A24DB34FA004C8A5B /* CustomTabBarController.swift in Sources */,
 				3110E32224D89E5900813AE7 /* ProgressWindow.swift in Sources */,
-				3105157624DB4EEE004C8A5B /* ProfileViewController.swift in Sources */,
+				3105157624DB4EEE004C8A5B /* ChatLogController.swift in Sources */,
 				3105157424DB3E60004C8A5B /* FriendCell.swift in Sources */,
 				315E8E6824DC942B000F6D31 /* SideMenu.swift in Sources */,
 				3105157224DB3CB9004C8A5B /* BaseTableCell.swift in Sources */,
 				3110E30524D86EDC00813AE7 /* SceneDelegate.swift in Sources */,
+				31E9E82624DDDC00003F2591 /* ProfileCell.swift in Sources */,
 				3105156C24DB388D004C8A5B /* User.swift in Sources */,
 				318A4AC924D9C34B00E28D09 /* HomeViewController.swift in Sources */,
 			);

@@ -8,16 +8,17 @@
 
 import UIKit
 
-class ProfileViewController: UIViewController {
+class ChatLogController: UIViewController {
     var firstName: String?
     var lastName: String?
     var userID: String?
     var email: String?
     var profileImage:UIImage?
-    lazy var  profileImageView: UIImageView = {
+    
+    lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.image = profileImage
         imageView.backgroundColor = .primaryColor
-        imageView.image = profileImage!
         imageView.layer.cornerRadius = 50
         imageView.layer.masksToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -25,11 +26,10 @@ class ProfileViewController: UIViewController {
         
     }()
     
-    lazy var  nameLabel: UILabel = {
-        
+    lazy var nameLabel: UILabel = {
         let label = UILabel()
-        label.textAlignment = .center
         label.text = firstName! + " " +  lastName!
+        label.textAlignment = .center
         label.textColor = .primaryColor
         label.font = UIFont.boldSystemFont(ofSize: 16)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -37,8 +37,7 @@ class ProfileViewController: UIViewController {
     }()
     
     
-    lazy var  emailLabel: UILabel = {
-        
+    lazy var emailLabel: UILabel = {
         let label = UILabel()
         label.text = ": " + email!
         label.textColor = .primaryColor
@@ -60,7 +59,7 @@ class ProfileViewController: UIViewController {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.addBlurEffectToNavBar()
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.primaryColor, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)]
-        navigationItem.title = "Profile"
+        navigationItem.title = firstName! + " " +  lastName!
         tabBarController?.tabBar.isHidden = true
     }
     override func viewDidLoad() {
