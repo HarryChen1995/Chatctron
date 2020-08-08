@@ -13,6 +13,7 @@ import FirebaseAuth
 import FirebaseStorage
 
 let usersCache = NSCache<NSString, NSArray>()
+let currentUserCache = NSCache<NSString, User>()
 class HomeViewController : UITableViewController {
     
     let loadingIndicator: UIActivityIndicatorView  = {
@@ -119,8 +120,9 @@ class HomeViewController : UITableViewController {
     }
     
     private func fetchUsers(){
-        if let u = usersCache.object(forKey: "users") as? [User] , u.count != 0{
+        if let u = usersCache.object(forKey: "users") as? [User] , u.count != 0, let currentUser = currentUserCache.object(forKey: "currentUse"){
             self.users = u
+            self.currentUser = currentUser
             self.tableView.isUserInteractionEnabled = true
             self.loadingView.isHidden = true
         }else{
@@ -143,6 +145,7 @@ class HomeViewController : UITableViewController {
                         }
                         else{
                             self.currentUser = user
+                            currentUserCache.setObject(user, forKey:"currentUser" as NSString)
                             self.navigationItem.leftBarButtonItem?.isEnabled = true
                             self.sideMenu.currentUser = self.currentUser
                             self.sideMenu.delegate = self
