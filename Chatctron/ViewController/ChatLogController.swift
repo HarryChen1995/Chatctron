@@ -8,51 +8,19 @@
 
 import UIKit
 
-class ChatLogController: UIViewController {
+class ChatLogController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+
+    
     var firstName: String?
     var lastName: String?
     var userID: String?
     var email: String?
     var profileImage:UIImage?
-    
-    lazy var profileImageView: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = profileImage
-        imageView.backgroundColor = .primaryColor
-        imageView.layer.cornerRadius = 50
-        imageView.layer.masksToBounds = true
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-        
-    }()
-    
-    lazy var nameLabel: UILabel = {
-        let label = UILabel()
-        label.text = firstName! + " " +  lastName!
-        label.textAlignment = .center
-        label.textColor = .primaryColor
-        label.font = UIFont.boldSystemFont(ofSize: 16)
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    
-    lazy var emailLabel: UILabel = {
-        let label = UILabel()
-        label.text = ": " + email!
-        label.textColor = .primaryColor
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    
-    let  emailIcon: UIImageView = {
-        let imageView = UIImageView()
-        imageView.image = UIImage(named: "email")?.withRenderingMode(.alwaysTemplate)
-        imageView.tintColor = .primaryColor
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-        
+    var message:[String]  = ["adsasdasdfjeiuwofjioewjfiowejfoiwejfiowejfiowejfoiwejfoiwejfiowejfasdasdasdad", "asdasdasdasdasdadadadasdadasdafjhuwhfiuhwiufhewiufhiuwefhiuwehfiuwehfiuwefdads", "hello"]
+    var tableView: UITableView  = {
+        let tableview = UITableView()
+        tableview.translatesAutoresizingMaskIntoConstraints = false
+        return tableview
     }()
     
     override func viewWillAppear(_ animated: Bool) {
@@ -66,34 +34,58 @@ class ChatLogController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         
-        view.addSubview(profileImageView)
-        view.addSubview(nameLabel)
-        view.addSubview(emailLabel)
-        view.addSubview(emailIcon)
+        setupTableView()
+    }
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        1
+    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 1 + message.count
+    }
+    
+   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        if indexPath.row == 0 {
+        return 200
+    }
+    return tableView.rowHeight
+
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        if indexPath.row == 0 {
         
-        let constraints = [
-            profileImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            profileImageView.centerYAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 70),
-            profileImageView.widthAnchor.constraint(equalToConstant: 100),
-            profileImageView.heightAnchor.constraint(equalToConstant: 100),
-            
-            nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            nameLabel.centerYAnchor.constraint(equalTo: profileImageView.centerYAnchor, constant: 70),
-            nameLabel.widthAnchor.constraint(equalToConstant: 200),
-            nameLabel.heightAnchor.constraint(equalToConstant: 40),
-            
-            
-            emailLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            emailLabel.centerYAnchor.constraint(equalTo: nameLabel.centerYAnchor, constant: 40),
-            
-            emailIcon.centerYAnchor.constraint(equalTo: emailLabel.centerYAnchor),
-            emailIcon.trailingAnchor.constraint(equalTo: emailLabel.leadingAnchor, constant: -2),
-            emailIcon.widthAnchor.constraint(equalToConstant: 20),
-            emailIcon.heightAnchor.constraint(equalTo: emailIcon.widthAnchor)
-        ]
-        
-        NSLayoutConstraint.activate(constraints)
-        
+        let cell = tableView.dequeueReusableCell(withIdentifier: messageID, for: indexPath) as! ProfileMessageCell
+            cell.profileImageView.image = profileImage
+            cell.nameLabel.text = firstName! + " "  + lastName!
+            cell.emailLabel.text = ": " + email!
+            return cell
+        }
+        else{
+             let cell = tableView.dequeueReusableCell(withIdentifier: id, for: indexPath) as! MessageCell
+            cell.messageLabel.text = message[indexPath.row - 1]
+            cell.profileimageView.image = profileImage
+            return cell
+        }
         
     }
+    
+    
+    let id = "messageCell"
+    let messageID = "message"
+    func setupTableView() {
+        tableView.delegate = self
+        tableView.dataSource = self
+        view.addSubview(tableView)
+        tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
+        tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
+        tableView.bottomAnchor .constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
+        tableView.separatorStyle = .none
+        tableView.tableFooterView = UIView()
+        tableView.register(MessageCell.self, forCellReuseIdentifier: id)
+        tableView.register(ProfileMessageCell.self, forCellReuseIdentifier: messageID)
+
+    }
+    
 }
