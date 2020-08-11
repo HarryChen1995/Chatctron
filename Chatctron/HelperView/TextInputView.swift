@@ -43,7 +43,7 @@ class TextInputView: UIView {
         
         let constraints = [
         
-            textView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10),
+            textView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             textView.topAnchor.constraint(equalTo: topAnchor, constant: 6),
             textView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6),
             textView.widthAnchor.constraint(equalToConstant: 300),
@@ -52,7 +52,7 @@ class TextInputView: UIView {
             sendButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
             sendButton.heightAnchor.constraint(equalToConstant: 35),
             sendButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6),
-            sendButton.widthAnchor.constraint(equalToConstant: 50),
+            sendButton.widthAnchor.constraint(equalToConstant: 45),
         
         
         ]
