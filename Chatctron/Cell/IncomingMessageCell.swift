@@ -21,7 +21,7 @@ class IncomingMessageCell: BaseTableCell {
     let bubbleView: UIView = {
         let view = UIView()
         view.backgroundColor = .secondaryColor
-        view.layer.cornerRadius = 10
+        view.layer.cornerRadius = 20
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
@@ -41,15 +41,15 @@ class IncomingMessageCell: BaseTableCell {
         selectionStyle = .none
         let constraints = [
             
-            messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: 32),
-            messageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -32),
-            messageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20+32),
+            messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            messageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
+            messageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20+30),
             messageLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 250),
             
-            bubbleView.topAnchor.constraint(equalTo: messageLabel.topAnchor, constant: -16),
-            bubbleView.leadingAnchor.constraint(equalTo: messageLabel.leadingAnchor, constant: -16),
-            bubbleView.bottomAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 16),
-            bubbleView.trailingAnchor.constraint(equalTo: messageLabel.trailingAnchor, constant: 16),
+            bubbleView.topAnchor.constraint(equalTo: messageLabel.topAnchor, constant: -13),
+            bubbleView.leadingAnchor.constraint(equalTo: messageLabel.leadingAnchor, constant: -13),
+            bubbleView.bottomAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 13),
+            bubbleView.trailingAnchor.constraint(equalTo: messageLabel.trailingAnchor, constant: 13),
             
             
             profileimageView.bottomAnchor.constraint(equalTo: bubbleView.bottomAnchor),

@@ -7,8 +7,9 @@
 //
 
 import UIKit
-
-class ChatLogController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+import FirebaseFirestore
+import FirebaseAuth
+class ChatLogController: UIViewController, UITableViewDataSource, UITableViewDelegate, UITextViewDelegate {
     
     
     var firstName: String?
@@ -16,38 +17,59 @@ class ChatLogController: UIViewController, UITableViewDataSource, UITableViewDel
     var userID: String?
     var email: String?
     var profileImage:UIImage?
-    var messages:[Message]  = [
-        Message(text: "Hello Harry", isIncoming: true, date: Date().addingTimeInterval(-60*60*24*22)),
-        Message(text: "Do you like my new song?", isIncoming: true, date: Date().addingTimeInterval(-60*60*24*2)),
-        Message(text: "yes!", isIncoming: true, date: Date().addingTimeInterval(-60*60)),
-        Message(text: "It sounds great!", isIncoming: false, date: Date()),
-        Message(text: "I hope you enjoy it!", isIncoming: true, date: Date().addingTimeInterval(60)),
-        Message(text: "I will see you at my concert, have a nice day!", isIncoming: true, date: Date().addingTimeInterval(60*2)),
-    ]
-    
-    
     var chatMessage = [[Message]]()
-    func groupMessage() {
-        let cal = Calendar.current
-        let dictMessage = Dictionary(grouping: messages, by: {
-            (element) in
-            return cal.date(from: cal.dateComponents([.year, .month, .day, .hour, .minute], from: element.date))
-            
-        })
-        let sortKeys = dictMessage.keys.sorted(by: {
-            $0?.compare($1 ?? Date()) ==  .orderedAscending
-        })
-        sortKeys.forEach({
-            (key) in
-            chatMessage.append(dictMessage[key] ?? [])
-        })
-    }
     var tableView: UITableView  = {
         let tableview = UITableView(frame: .zero, style: .grouped)
         tableview.translatesAutoresizingMaskIntoConstraints = false
         tableview.backgroundColor = .white
         return tableview
     }()
+    
+    
+    
+    
+    func fetchMessage(){
+        let currentUserID = Auth.auth().currentUser?.uid
+        let db = Firestore.firestore()
+        db.collection("messages").document("\(currentUserID!)")
+            .addSnapshotListener { documentSnapshot, error in
+                guard let document = documentSnapshot else {
+                    print("Error fetching document: \(error!)")
+                    return
+                }
+                if let data = document.data() {
+                    if let fetchMessages = data["\(self.userID!)"] as? [[String:Any]] {
+                        self.chatMessage = [[Message]]()
+                        let cal = Calendar.current
+                        let serverMessage = fetchMessages.map({Message(text: $0["text"] as! String, isIncoming: $0["isIncoming"] as! Bool, date: Date.convertToDate(string: $0["date"] as! String) )
+                        })
+                        let dictMessage = Dictionary(grouping: serverMessage, by: {
+                            (element) in
+                            return cal.date(from: cal.dateComponents([.year, .month, .day, .hour, .minute], from: element.date))
+                            
+                        })
+                        let sortKeys = dictMessage.keys.sorted(by: {
+                            $0?.compare($1 ?? Date()) ==  .orderedAscending
+                        })
+                        sortKeys.forEach({
+                            (key) in
+                            self.chatMessage.append(dictMessage[key] ?? [])
+                        })
+                        
+                        self.tableView.reloadData()
+                        
+                        
+                    }
+                }
+                
+        }
+    }
+    
+    
+    
+    
+    
+    
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -59,9 +81,39 @@ class ChatLogController: UIViewController, UITableViewDataSource, UITableViewDel
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+        view.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard)))
+        setupTextInputView()
         setupTableView()
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyBoardChanged), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyBoardChanged), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        fetchMessage()
+        
     }
+    
+    @objc func dismissKeyboard(){
+        textInputView.textView.resignFirstResponder()
+    }
+    
+    @objc func handleKeyBoardChanged(notification: NSNotification){
+        
+        if let userInfo = notification.userInfo {
+            let keyboardFrame  = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue
+            let isKeboardShowing = notification.name == UIResponder.keyboardWillShowNotification
+            textInputBottomConstraint?.constant = isKeboardShowing ? -(keyboardFrame?.height ?? 0) : 0
+            UIView.animate(withDuration: 0, delay: 0, options: .curveEaseOut, animations: {self.view.layoutIfNeeded()}, completion: {
+                (completed) in
+                if isKeboardShowing {
+                    if self.chatMessage.count != 0 {
+                        let indexPath = IndexPath(row: self.chatMessage[self.chatMessage.count-1].count-1, section: self.chatMessage.count-1)
+                        self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                    }
+                }
+            })
+        }
+        
+    }
+    
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return chatMessage.count
@@ -76,7 +128,7 @@ class ChatLogController: UIViewController, UITableViewDataSource, UITableViewDel
         let label = UILabel()
         label.textAlignment = .center
         label.text = Date.convertDateToString(date:chatMessage[section].first?.date ?? Date())
-        label.font = UIFont.boldSystemFont(ofSize:16)
+        label.font = UIFont.boldSystemFont(ofSize:15)
         label.backgroundColor = .white
         return label
     }
@@ -110,14 +162,87 @@ class ChatLogController: UIViewController, UITableViewDataSource, UITableViewDel
         view.addSubview(tableView)
         tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor).isActive = true
         tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        tableView.bottomAnchor .constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        tableView.bottomAnchor .constraint(equalTo: textInputView.topAnchor).isActive = true
         tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor).isActive = true
         tableView.separatorStyle = .none
         tableView.tableFooterView = UIView()
         tableView.register(IncomingMessageCell.self, forCellReuseIdentifier: incomingid)
         tableView.register(MessageCell.self, forCellReuseIdentifier: id)
-        groupMessage()
         
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        let fixedWidth = textInputView.frame.size.width
+        let size = CGSize(width: fixedWidth, height: CGFloat.infinity)
+        let fitSize = textInputView.textView.sizeThatFits(size)
+        
+        textInputHeightConstraint?.constant = fitSize.height + 12
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        
+        if text == "\n" {
+            textView.text += "\n"
+        }
+        
+        return true
+        
+    }
+    
+    
+    
+    
+    func uploadMessage(text:String, date:Date) {
+        let currentUserID = Auth.auth().currentUser?.uid
+        let db = Firestore.firestore()
+        let message:[String:Any] = [
+            "text": text,
+            "isIncoming": false,
+            "date": Date.convertToString(date: date)
+        ]
+        
+        let incomingMessage:[String:Any] = [
+            "text": text,
+            "isIncoming": true,
+            "date": Date.convertToString(date: date)
+        ]
+        
+        db.collection("messages").document("\(currentUserID!)").setData(
+            ["\(userID!)" : FieldValue.arrayUnion([message])], merge:  true
+        )
+        
+        db.collection("messages").document("\(userID!)").setData(
+            ["\(currentUserID!)" : FieldValue.arrayUnion([incomingMessage])], merge: true
+        )
+        
+    }
+    
+    
+    @objc func sendMessage(){
+        uploadMessage(text: textInputView.textView.text, date: Date())
+        textInputView.textView.resignFirstResponder()
+        textInputView.textView.text = ""
+        textInputHeightConstraint?.constant = 50
+    }
+    
+    lazy var textInputView: TextInputView  = {
+        let textinputview = TextInputView()
+        textinputview.textView.delegate = self
+        textinputview.sendButton.addTarget(self, action: #selector(sendMessage), for: .touchUpInside)
+        textinputview.translatesAutoresizingMaskIntoConstraints = false
+        return textinputview
+    }()
+    
+    var textInputBottomConstraint: NSLayoutConstraint?
+    var textInputHeightConstraint: NSLayoutConstraint?
+    func setupTextInputView(){
+        view.addSubview(textInputView)
+        
+        textInputView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true
+        textInputBottomConstraint = textInputView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+        textInputBottomConstraint?.isActive = true
+        textInputHeightConstraint = textInputView.heightAnchor.constraint(equalToConstant: 46)
+        textInputHeightConstraint?.isActive = true
     }
     
 }
@@ -138,5 +263,21 @@ extension Date {
         }
         text = dateFormatter.string(from: date)
         return text
+    }
+    
+    
+    static func convertToString(date:Date)->String{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return dateFormatter.string(from: date)
+        
+    }
+    
+    
+    static func convertToDate(string:String)->Date{
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        return dateFormatter.date(from: string)!
+        
     }
 }
