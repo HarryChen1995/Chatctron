@@ -219,10 +219,12 @@ class ChatLogController: UIViewController, UITableViewDataSource, UITableViewDel
     
     
     @objc func sendMessage(){
-        uploadMessage(text: textInputView.textView.text, date: Date())
+        if textInputView.textView.text != "" {
+            uploadMessage(text: textInputView.textView.text, date: Date())
+            textInputHeightConstraint?.constant = 50
+            textInputView.textView.text = ""
+        }
         textInputView.textView.resignFirstResponder()
-        textInputView.textView.text = ""
-        textInputHeightConstraint?.constant = 50
     }
     
     lazy var textInputView: TextInputView  = {
