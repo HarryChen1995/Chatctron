@@ -207,13 +207,47 @@ class ChatLogController: UIViewController, UITableViewDataSource, UITableViewDel
             "date": Date.convertToString(date: date)
         ]
         
-        db.collection("messages").document("\(currentUserID!)").setData(
-            ["\(userID!)" : FieldValue.arrayUnion([message])], merge:  true
-        )
+        let senderRef = db.collection("messages").document("\(currentUserID!)")
+        let ReceiverRef = db.collection("messages").document("\(userID!)")
         
-        db.collection("messages").document("\(userID!)").setData(
-            ["\(currentUserID!)" : FieldValue.arrayUnion([incomingMessage])], merge: true
-        )
+        senderRef.getDocument(completion:
+            {
+                (document, error) in
+                if error != nil {
+                    print(error!)
+                }
+                else {
+                    if let document = document, document.exists {
+                        senderRef.updateData(["\(self.userID!)" : FieldValue.arrayUnion([message])])
+                    }else {
+                        senderRef.setData(
+                            ["\(self.userID!)" : [message]]
+                        )
+                    }
+                }
+        })
+        
+        
+        ReceiverRef.getDocument(completion:
+            {
+                (document, error) in
+                if error != nil {
+                    print(error!)
+                }
+                else {
+                    if let document = document, document.exists {
+                        ReceiverRef.updateData(["\(currentUserID!)" : FieldValue.arrayUnion([incomingMessage])])
+                    }else {
+                        ReceiverRef.setData(
+                            ["\(currentUserID!)" : [incomingMessage]]
+                        )
+                    }
+                }
+        })
+        
+        
+        
+        
         
     }
     
