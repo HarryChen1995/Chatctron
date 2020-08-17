@@ -14,6 +14,7 @@ class TextInputView: UIView {
     let textView: UITextView = {
        let textview = UITextView()
         textview.layer.cornerRadius = 12
+        textview.isScrollEnabled = false
         textview.font = UIFont.systemFont(ofSize: 16)
         textview.translatesAutoresizingMaskIntoConstraints = false
         return textview
