@@ -34,7 +34,7 @@ class HomeViewController : UITableViewController, UISearchResultsUpdating {
         if searchController.isActive {
             let searchStringByFristorLastName = searchController.searchBar.text?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
             let searchStringByFullName = searchController.searchBar.text?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            filteredUsers = users.filter({$0.firstName.lowercased().contains(searchStringByFristorLastName) || $0.lastName.lowercased().contains(searchStringByFristorLastName) || ($0.firstName.lowercased() + " " + $0.lastName.lowercased()).contains(searchStringByFullName)})
+            filteredUsers = users.filter({$0.firstName.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).contains(searchStringByFristorLastName) || $0.lastName.lowercased().trimmingCharacters(in: .whitespacesAndNewlines).contains(searchStringByFristorLastName) || ($0.firstName.lowercased() + " " + $0.lastName.lowercased()).trimmingCharacters(in: .whitespacesAndNewlines).contains(searchStringByFullName)})
         }else{
             filteredUsers = users
         }
