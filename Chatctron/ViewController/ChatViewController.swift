@@ -12,7 +12,7 @@ class ChatViewController : UITableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.title =  "Chats"
+        navigationItem.title =  "Recent Chats"
         navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.primaryColor, NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 20)]
         navigationController?.navigationBar.addBlurEffectToNavBar()
         tabBarController?.tabBar.isHidden = false

@@ -14,8 +14,33 @@ import FirebaseStorage
 
 let usersCache = NSCache<NSString, NSArray>()
 let currentUserCache = NSCache<NSString, User>()
-class HomeViewController : UITableViewController {
+class HomeViewController : UITableViewController, UISearchResultsUpdating {
+    let ID = "Friend"
+    var users: [User] = []
+    var filteredUsers: [User] = []
+    var userID:String?
+    var currentUser:User?
     
+    lazy var searchController: UISearchController  = {
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchResultsUpdater = self
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search Friend"
+        searchController.definesPresentationContext = true
+        return searchController
+    }()
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        if searchController.isActive {
+            let searchStringByFristorLastName = searchController.searchBar.text?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            let searchStringByFullName = searchController.searchBar.text?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
+            filteredUsers = users.filter({$0.firstName.lowercased().contains(searchStringByFristorLastName) || $0.lastName.lowercased().contains(searchStringByFristorLastName) || ($0.firstName.lowercased() + " " + $0.lastName.lowercased()).contains(searchStringByFullName)})
+        }else{
+            filteredUsers = users
+        }
+        tableView.reloadData()
+        
+    }
     let loadingIndicator: UIActivityIndicatorView  = {
         let  indicator = UIActivityIndicatorView()
         indicator.style = .large
@@ -119,18 +144,17 @@ class HomeViewController : UITableViewController {
             }}
     }
     
-    private func fetchUsers(){
+    private func fetchUsers( completion: @escaping([User])->Void){
         if let u = usersCache.object(forKey: "users") as? [User] , u.count != 0, let currentUser = currentUserCache.object(forKey: "currentUse"){
-            self.users = u
             self.currentUser = currentUser
-            self.tableView.isUserInteractionEnabled = true
-            self.loadingView.isHidden = true
+            completion(users)
         }else{
             let db = Firestore.firestore()
             db.collection("users").getDocuments() { (querySnapshot, err) in
                 if let err = err {
                     print("Error getting documents: \(err)")
                 } else {
+                    var users:[User] = []
                     for document in querySnapshot!.documents {
                         let data = document.data()
                         let user = User(userID: document.documentID, firstName: data["firstName"] as! String, lastName: data["lastName"] as! String, email: data["email"] as! String)
@@ -141,7 +165,7 @@ class HomeViewController : UITableViewController {
                         )
                         if document.documentID != Auth.auth().currentUser?.uid  {
                             
-                            self.users.append(user)
+                            users.append(user)
                         }
                         else{
                             self.currentUser = user
@@ -153,11 +177,7 @@ class HomeViewController : UITableViewController {
                         }
                     }
                     usersCache.setObject(self.users as NSArray, forKey: "users" as NSString)
-                    self.tableView.isUserInteractionEnabled = true
-                    self.loadingView.isHidden = true
-                    self.tableView.reloadData()
-                    
-                    
+                    completion(users)
                     
                 }
             }
@@ -165,12 +185,6 @@ class HomeViewController : UITableViewController {
         }
     }
     
-    
-    
-    let ID = "Friend"
-    var users: [User] = []
-    var userID:String?
-    var currentUser:User?
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -199,16 +213,24 @@ class HomeViewController : UITableViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.searchController = searchController
         sideMenu.setup()
         view.backgroundColor = .white
         navigationItem.title = "Friends"
         navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "setting")?.withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(displaySideMenu))
         navigationItem.leftBarButtonItem?.isEnabled = false
         tableView.tableFooterView = UIView()
+        tableView.separatorStyle = .none
         tableView.register(FriendCell.self, forCellReuseIdentifier: ID)
         setupLoadingView()
         tableView.isUserInteractionEnabled = false
-        fetchUsers()
+        fetchUsers(completion: {
+            
+            self.users = $0
+            self.filteredUsers = $0
+            self.tableView.isUserInteractionEnabled = true
+            self.loadingView.isHidden = true
+        })
         
         
     }
@@ -234,7 +256,7 @@ class HomeViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        return filteredUsers.count
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90
@@ -242,7 +264,7 @@ class HomeViewController : UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let user = users[indexPath.row]
+        let user = filteredUsers[indexPath.row]
         let chatlogvc =  ChatLogController()
         chatlogvc.firstName = user.firstName
         chatlogvc.lastName = user.lastName
@@ -254,7 +276,7 @@ class HomeViewController : UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ID, for: indexPath) as! FriendCell
-        let user = users[indexPath.row]
+        let user = filteredUsers[indexPath.row]
         cell.user = user
         return cell
     }

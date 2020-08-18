@@ -38,14 +38,22 @@ class FriendCell : BaseTableCell {
         return label
     }()
     
+    let seperator: UIView = {
+        let seperator = UIView()
+        seperator.backgroundColor = UIColor(white: 0.9, alpha: 1)
+        return seperator
+    }()
     override func setupCell(){
         super.setupCell()
         addSubview(profileImageView)
         addSubview(userName)
+        addSubview(seperator)
         addConstraintsWithFormat(format: "H:|-20-[v0(50)]-20-[v1(200)]", views: profileImageView, userName)
         addConstraintsWithFormat(format: "V:|-20-[v0(50)]", views: profileImageView)
         addConstraintsWithFormat(format: "V:|-29-[v0(30)]", views: userName)
-        
+        addConstraintsWithFormat(format: "H:|-90-[v0]|", views: seperator)
+        addConstraintsWithFormat(format: "V:[v0(1)]|", views: seperator)
+    
         
         
     }
