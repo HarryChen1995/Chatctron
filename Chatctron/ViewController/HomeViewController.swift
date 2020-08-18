@@ -188,8 +188,10 @@ class HomeViewController : UITableViewController {
     func logout(){
         do {
             try Auth.auth().signOut()
-            let loginVC = LoginViewController()
-            navigationController?.pushViewController(loginVC, animated: true)
+            let loginVC =  UINavigationController(rootViewController: LoginViewController())
+            if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
+                window.rootViewController = loginVC
+            }
         }catch{
             print(error)
             return
