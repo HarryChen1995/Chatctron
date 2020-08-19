@@ -266,7 +266,6 @@ class ChatLogController: UIViewController, UITableViewDataSource, UITableViewDel
             textInputHeightConstraint?.constant = 50
             textInputView.textView.text = ""
         }
-        textInputView.textView.resignFirstResponder()
     }
     
     lazy var textInputView: TextInputView  = {
