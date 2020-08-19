@@ -119,8 +119,10 @@ class HomeViewController : UITableViewController, UISearchResultsUpdating {
                             } else {
                                 let alertController = UIAlertController(title: "Deletion Success" , message: "Your acount has been successfully deleted, sorry to see you go! ", preferredStyle: .alert)
                                 alertController.addAction(UIAlertAction(title: "Ok", style:.default, handler:  { (action) in
-                                    let loginVC = LoginViewController()
-                                    self.navigationController?.pushViewController(loginVC, animated: true)
+                                    let loginVC =  UINavigationController(rootViewController: LoginViewController())
+                                    if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
+                                        window.rootViewController = loginVC
+                                    }
                                 }))
                                 progressWindow.dissmisProgress()
                                 self.present(alertController, animated: true, completion: nil)
