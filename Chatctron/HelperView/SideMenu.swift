@@ -107,6 +107,7 @@ class Menu : UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICol
     }
     let topbottomPadding = 30
     let leftrightPadding = 20
+    var collectionViewWidthConstraint: NSLayoutConstraint?
     func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
@@ -116,8 +117,9 @@ class Menu : UIView, UICollectionViewDelegate, UICollectionViewDataSource, UICol
         
         collectionView.topAnchor.constraint(equalTo: topAnchor, constant: CGFloat(topbottomPadding)).isActive = true
         collectionView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -CGFloat(topbottomPadding)).isActive = true
-        collectionView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -CGFloat(leftrightPadding)).isActive = true
-        collectionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: CGFloat(leftrightPadding)).isActive = true
+        collectionView.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+        collectionViewWidthConstraint = collectionView.widthAnchor.constraint(equalTo: widthAnchor)
+        collectionViewWidthConstraint?.isActive = true
         
         collectionView.register(MenuItemCell.self, forCellWithReuseIdentifier: id)
         collectionView.register(ProfileCell.self, forCellWithReuseIdentifier: profileid)
@@ -142,7 +144,7 @@ class SideMenu {
         return view
     }()
     
-    var widthConstraining: NSLayoutConstraint?
+    var trailingConstraining: NSLayoutConstraint?
     let menuWidth:CGFloat = 300
     func setup(){
         
@@ -159,8 +161,8 @@ class SideMenu {
             menu.topAnchor.constraint(equalTo: window.topAnchor).isActive = true
             menu.bottomAnchor.constraint(equalTo: window.bottomAnchor).isActive = true
             menu.leadingAnchor.constraint(equalTo: window.leadingAnchor).isActive = true
-            widthConstraining =  menu.trailingAnchor.constraint(equalTo: window.leadingAnchor)
-            widthConstraining?.isActive = true
+            trailingConstraining =  menu.trailingAnchor.constraint(equalTo: window.leadingAnchor)
+            trailingConstraining?.isActive = true
         }
     }
     
@@ -170,7 +172,8 @@ class SideMenu {
         return menu
     }()
     func showSideMenu(){
-        self.widthConstraining?.constant = self.menuWidth
+        self.trailingConstraining?.constant = self.menuWidth
+        menu.collectionViewWidthConstraint?.constant -= CGFloat(2*menu.leftrightPadding)
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations:
             {
                 
@@ -187,7 +190,8 @@ class SideMenu {
     
     
     @objc func dismissSideMenu() {
-        widthConstraining?.constant = 0
+        trailingConstraining?.constant = 0
+        menu.collectionViewWidthConstraint?.constant = 0
         UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 1, options: .curveEaseOut, animations:
             {
                 self.blackView.alpha = 0
