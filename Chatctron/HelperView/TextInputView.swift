@@ -14,6 +14,7 @@ class TextInputView: UIView {
     let textView: UITextView = {
        let textview = UITextView()
         textview.layer.cornerRadius = 12
+        textview.backgroundColor = UIColor(white: 0.95, alpha: 1)
         textview.showsVerticalScrollIndicator = false
         textview.font = UIFont.systemFont(ofSize: 16)
         textview.translatesAutoresizingMaskIntoConstraints = false
@@ -32,7 +33,7 @@ class TextInputView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        backgroundColor = UIColor(white: 0.9, alpha: 1)
+        backgroundColor = .white
         setupTextInputView()
     }
     
@@ -47,10 +48,10 @@ class TextInputView: UIView {
             textView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
             textView.topAnchor.constraint(equalTo: topAnchor, constant: 6),
             textView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6),
-            textView.widthAnchor.constraint(equalToConstant: 300),
+            textView.widthAnchor.constraint(equalToConstant: 250),
             
             
-            sendButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            sendButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             sendButton.heightAnchor.constraint(equalToConstant: 35),
             sendButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -6),
             sendButton.widthAnchor.constraint(equalToConstant: 45),

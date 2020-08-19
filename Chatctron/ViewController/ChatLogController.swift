@@ -282,7 +282,7 @@ class ChatLogController: UIViewController, UITableViewDataSource, UITableViewDel
         view.addSubview(textInputView)
         
         textInputView.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true
-        textInputBottomConstraint = textInputView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+        textInputBottomConstraint = textInputView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
         textInputBottomConstraint?.isActive = true
         textInputHeightConstraint = textInputView.heightAnchor.constraint(equalToConstant: 46)
         textInputHeightConstraint?.isActive = true
