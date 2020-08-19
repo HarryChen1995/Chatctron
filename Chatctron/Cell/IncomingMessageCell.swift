@@ -7,9 +7,11 @@
 //
 
 import UIKit
-
+import AVFoundation
 
 class IncomingMessageCell: BaseTableCell {
+    var delegate: ChatLogController!
+    var indexPath: IndexPath!
     let messageLabel: UILabel =  {
         let label = UILabel()
         label.textColor = .white
@@ -33,12 +35,19 @@ class IncomingMessageCell: BaseTableCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
+    @objc func enableDeletion(){
+         AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+         delegate.deleteIncomingMessage(indexPath: indexPath)
+     }
     override func setupCell() {
         super.setupCell()
         addSubview(bubbleView)
         addSubview(messageLabel)
         addSubview(profileimageView)
         selectionStyle = .none
+        let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(enableDeletion))
+         longPressGesture.minimumPressDuration = 0.5
+        bubbleView.addGestureRecognizer(longPressGesture)
         let constraints = [
             
             messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),

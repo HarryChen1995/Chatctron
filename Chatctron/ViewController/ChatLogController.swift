@@ -78,6 +78,8 @@ class ChatLogController: UIViewController, UITableViewDataSource, UITableViewDel
         navigationItem.title = firstName! + " " +  lastName!
         tabBarController?.tabBar.isHidden = true
     }
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
@@ -141,12 +143,16 @@ class ChatLogController: UIViewController, UITableViewDataSource, UITableViewDel
             
             cell.messageLabel.text = message.text
             cell.profileimageView.image = profileImage
+            cell.delegate = self
+            cell.indexPath = indexPath
             return cell
         }
         else {
             let cell = tableView.dequeueReusableCell(withIdentifier: id, for: indexPath) as! MessageCell
             
             cell.messageLabel.text = message.text
+            cell.delegate = self
+            cell.indexPath = indexPath
             return cell
         }
         
@@ -170,6 +176,8 @@ class ChatLogController: UIViewController, UITableViewDataSource, UITableViewDel
         tableView.register(MessageCell.self, forCellReuseIdentifier: id)
         
     }
+    
+    
     
     func textViewDidChange(_ textView: UITextView) {
         let fixedWidth = textInputView.frame.size.width
@@ -279,6 +287,138 @@ class ChatLogController: UIViewController, UITableViewDataSource, UITableViewDel
         textInputBottomConstraint?.isActive = true
         textInputHeightConstraint = textInputView.heightAnchor.constraint(equalToConstant: 46)
         textInputHeightConstraint?.isActive = true
+    }
+    
+    
+    func  deleteIncomingMessage(indexPath:IndexPath) {
+        
+        let sendedMessage: [String:Any] = [
+            
+            "date": Date.convertToString(date: chatMessage[indexPath.section][indexPath.row].date),
+            "isIncoming": false,
+            "text": chatMessage[indexPath.section][indexPath.row].text
+        ]
+        
+        let receivedMessage:[String:Any] = [
+            
+            "date": Date.convertToString(date: chatMessage[indexPath.section][indexPath.row].date),
+            "isIncoming": true,
+            "text": chatMessage[indexPath.section][indexPath.row].text
+        ]
+        
+        let currentUserID = Auth.auth().currentUser?.uid
+        let db = Firestore.firestore()
+        let senderRef = db.collection("messages").document("\(currentUserID!)")
+        let ReceiverRef = db.collection("messages").document("\(self.userID!)")
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle:.actionSheet)
+        alertController.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: {
+            (action) in
+            
+            senderRef.updateData(
+                 [
+                     "\(self.userID!)" : FieldValue.arrayRemove([receivedMessage])
+             ])
+            
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Remove for Everyone", style: .destructive, handler: {
+            (action) in
+            
+            senderRef.updateData(
+                [
+                    "\(self.userID!)" : FieldValue.arrayRemove([receivedMessage])
+            ])
+            
+            ReceiverRef.getDocument(completion: {
+                (document, error) in
+                if error != nil {
+                    print(error!)
+                }
+                else {
+                    if let document = document, document.exists {
+                        if let data = document.data() , data["\(currentUserID!)"] != nil {
+                            ReceiverRef.updateData(
+                                [
+                                    "\(currentUserID!)": FieldValue.arrayRemove([sendedMessage])
+                            ])
+                        }
+                    }
+                }
+                
+            })
+            
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alertController,animated: true)
+        
+    }
+    
+    
+    func  deleteMessage(indexPath:IndexPath) {
+        
+        let sendedMessage: [String:Any] = [
+            
+            "date": Date.convertToString(date: chatMessage[indexPath.section][indexPath.row].date),
+            "isIncoming": false,
+            "text": chatMessage[indexPath.section][indexPath.row].text
+        ]
+        
+        let receivedMessage:[String:Any] = [
+            
+            "date": Date.convertToString(date: chatMessage[indexPath.section][indexPath.row].date),
+            "isIncoming": true,
+            "text": chatMessage[indexPath.section][indexPath.row].text
+        ]
+        
+        let currentUserID = Auth.auth().currentUser?.uid
+        let db = Firestore.firestore()
+        let senderRef = db.collection("messages").document("\(currentUserID!)")
+        let ReceiverRef = db.collection("messages").document("\(self.userID!)")
+        
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle:.actionSheet)
+        
+        
+        alertController.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: {
+            (action) in
+            
+            senderRef.updateData(
+                 [
+                     "\(self.userID!)" : FieldValue.arrayRemove([sendedMessage])
+             ])
+            
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Remove for Everyone", style: .destructive, handler: {
+            (action) in
+            
+            senderRef.updateData(
+                [
+                    "\(self.userID!)" : FieldValue.arrayRemove([sendedMessage])
+            ])
+            
+            ReceiverRef.getDocument(completion: {
+                (document, error) in
+                if error != nil {
+                    print(error!)
+                }
+                else {
+                    if let document = document, document.exists {
+                        if let data = document.data() , data["\(currentUserID!)"] != nil {
+                            ReceiverRef.updateData(
+                                [
+                                    "\(currentUserID!)": FieldValue.arrayRemove([receivedMessage])
+                            ])
+                        }
+                    }
+                }
+                
+            })
+            
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alertController,animated: true)
+        
     }
     
 }

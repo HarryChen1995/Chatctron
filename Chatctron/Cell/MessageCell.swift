@@ -8,9 +8,13 @@
 
 
 import UIKit
-
+import AVFoundation
 
 class MessageCell: BaseTableCell {
+    
+    
+    var delegate: ChatLogController!
+    var indexPath: IndexPath!
     let messageLabel: UILabel =  {
         let label = UILabel()
         label.textColor = .black
@@ -26,26 +30,36 @@ class MessageCell: BaseTableCell {
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    
+
+    
+    @objc func enableDeletion(){
+        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+        delegate.deleteMessage(indexPath: indexPath)
+    }
+    
     override func setupCell() {
         super.setupCell()
         addSubview(bubbleView)
         addSubview(messageLabel)
-        
         selectionStyle = .none
+      let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(enableDeletion))
+        longPressGesture.minimumPressDuration = 0.5
+       bubbleView.addGestureRecognizer(longPressGesture)
+
         let constraints = [
             
             messageLabel.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             messageLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20),
-            messageLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
+            messageLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -25),
             messageLabel.widthAnchor.constraint(lessThanOrEqualToConstant: 250),
+            
             
             bubbleView.topAnchor.constraint(equalTo: messageLabel.topAnchor, constant: -13),
             bubbleView.leadingAnchor.constraint(equalTo: messageLabel.leadingAnchor, constant: -13),
             bubbleView.bottomAnchor.constraint(equalTo: messageLabel.bottomAnchor, constant: 13),
-            bubbleView.trailingAnchor.constraint(equalTo: messageLabel.trailingAnchor, constant: 13),
-            
-            
-            
+            bubbleView.trailingAnchor.constraint(equalTo: messageLabel.trailingAnchor, constant: 13)
         ]
         
         NSLayoutConstraint.activate(constraints)
