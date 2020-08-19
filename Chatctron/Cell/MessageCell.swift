@@ -35,7 +35,8 @@ class MessageCell: BaseTableCell {
 
     
     @objc func enableDeletion(){
-        AudioServicesPlayAlertSound(kSystemSoundID_Vibrate)
+        let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.impactOccurred()
         delegate.deleteMessage(indexPath: indexPath)
     }
     
@@ -45,7 +46,7 @@ class MessageCell: BaseTableCell {
         addSubview(messageLabel)
         selectionStyle = .none
       let longPressGesture = UILongPressGestureRecognizer(target: self, action: #selector(enableDeletion))
-        longPressGesture.minimumPressDuration = 0.5
+        longPressGesture.minimumPressDuration = 0.6
        bubbleView.addGestureRecognizer(longPressGesture)
 
         let constraints = [
