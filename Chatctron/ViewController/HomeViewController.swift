@@ -150,6 +150,10 @@ class HomeViewController : UITableViewController, UISearchResultsUpdating {
     private func fetchUsers( completion: @escaping([User])->Void){
         if let u = usersCache.object(forKey: "users") as? [User] , u.count != 0, let currentUser = currentUserCache.object(forKey: "currentUse"){
             self.currentUser = currentUser
+            self.tableView.isUserInteractionEnabled = true
+            self.loadingView.isHidden = true
+            self.filteredUsers = u
+            self.tableView.reloadData()
             completion(users)
         }else{
             let db = Firestore.firestore()
@@ -180,6 +184,10 @@ class HomeViewController : UITableViewController, UISearchResultsUpdating {
                         }
                     }
                     usersCache.setObject(self.users as NSArray, forKey: "users" as NSString)
+                    self.tableView.isUserInteractionEnabled = true
+                    self.loadingView.isHidden = true
+                    self.filteredUsers = users
+                    self.tableView.reloadData()
                     completion(users)
                     
                 }
@@ -228,11 +236,7 @@ class HomeViewController : UITableViewController, UISearchResultsUpdating {
         setupLoadingView()
         tableView.isUserInteractionEnabled = false
         fetchUsers(completion: {
-            
             self.users = $0
-            self.filteredUsers = $0
-            self.tableView.isUserInteractionEnabled = true
-            self.loadingView.isHidden = true
         })
         
         
