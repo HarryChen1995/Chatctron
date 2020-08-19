@@ -31,15 +31,18 @@ class HomeViewController : UITableViewController, UISearchResultsUpdating {
     }()
     
     func updateSearchResults(for searchController: UISearchController) {
-        if searchController.isActive {
-            let searchStringByFristorLastName = searchController.searchBar.text?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            let searchStringByFullName = searchController.searchBar.text?.lowercased().trimmingCharacters(in: .whitespacesAndNewlines) ?? ""
-            filteredUsers = users.filter({
-                let firstName =  $0.firstName.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
-                let lastName = $0.lastName.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
-                return firstName.contains(searchStringByFristorLastName) || lastName.contains(searchStringByFristorLastName) || (firstName + " " + lastName).contains(searchStringByFullName)})
-        }else{
-            filteredUsers = users
+        if let searchText = searchController.searchBar.text {
+            if searchText != "" {
+                let searchStringByFristorLastName = searchText.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+                let searchStringByFullName = searchText.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+                filteredUsers = users.filter({
+                    let firstName =  $0.firstName.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+                    let lastName = $0.lastName.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
+                    return firstName.contains(searchStringByFristorLastName) || lastName.contains(searchStringByFristorLastName) || (firstName + " " + lastName).contains(searchStringByFullName)})
+            }
+            else  {
+                filteredUsers = users
+            }
         }
         tableView.reloadData()
         
@@ -148,14 +151,6 @@ class HomeViewController : UITableViewController, UISearchResultsUpdating {
     }
     
     private func fetchUsers( completion: @escaping([User])->Void){
-        if let u = usersCache.object(forKey: "users") as? [User] , u.count != 0, let currentUser = currentUserCache.object(forKey: "currentUse"){
-            self.currentUser = currentUser
-            self.tableView.isUserInteractionEnabled = true
-            self.loadingView.isHidden = true
-            self.filteredUsers = u
-            self.tableView.reloadData()
-            completion(users)
-        }else{
             let db = Firestore.firestore()
             db.collection("users").getDocuments() { (querySnapshot, err) in
                 if let err = err {
@@ -186,14 +181,18 @@ class HomeViewController : UITableViewController, UISearchResultsUpdating {
                     usersCache.setObject(self.users as NSArray, forKey: "users" as NSString)
                     self.tableView.isUserInteractionEnabled = true
                     self.loadingView.isHidden = true
-                    self.filteredUsers = users
+                    if self.searchController.isActive {
+                        self.filteredUsers = users
+                    }else{
+                        self.users = users
+                    }
                     self.tableView.reloadData()
                     completion(users)
                     
                 }
             }
             
-        }
+        
     }
     
     
@@ -263,7 +262,11 @@ class HomeViewController : UITableViewController, UISearchResultsUpdating {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredUsers.count
+        if searchController.isActive {
+            return filteredUsers.count
+        }else{
+            return users.count
+        }
     }
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 90
@@ -271,7 +274,12 @@ class HomeViewController : UITableViewController, UISearchResultsUpdating {
     
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let user = filteredUsers[indexPath.row]
+        var user:User
+        if searchController.isActive {
+            user = filteredUsers[indexPath.row]
+        }else{
+            user = users[indexPath.row]
+        }
         let chatlogvc =  ChatLogController()
         chatlogvc.firstName = user.firstName
         chatlogvc.lastName = user.lastName
@@ -283,7 +291,12 @@ class HomeViewController : UITableViewController, UISearchResultsUpdating {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: ID, for: indexPath) as! FriendCell
-        let user = filteredUsers[indexPath.row]
+        var user:User
+        if searchController.isActive {
+            user = filteredUsers[indexPath.row]
+        }else{
+            user = users[indexPath.row]
+        }
         cell.user = user
         return cell
     }

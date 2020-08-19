@@ -100,9 +100,10 @@ class LoginViewController : UIViewController , UITextFieldDelegate{
                         self.present(alertController, animated: true, completion: nil)
                     }
                     else{
-                        
+                        if let window = UIApplication.shared.windows.filter({$0.isKeyWindow}).first {
                         let tabbarCV = CustomTabBarController()
-                        self.navigationController?.pushViewController(tabbarCV, animated: true)
+                            window.rootViewController = tabbarCV
+                        }
                     }
                     
                 }
