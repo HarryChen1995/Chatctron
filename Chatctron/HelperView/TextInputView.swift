@@ -51,7 +51,7 @@ class TextInputView: UIView {
             
             sendButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
             sendButton.heightAnchor.constraint(equalToConstant: 25),
-            sendButton.centerYAnchor.constraint(equalTo: textView.centerYAnchor),
+            sendButton.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
             sendButton.widthAnchor.constraint(equalToConstant: 25),
         
         

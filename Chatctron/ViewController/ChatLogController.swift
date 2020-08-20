@@ -55,8 +55,12 @@ class ChatLogController: UIViewController, UITableViewDataSource, UITableViewDel
                             (key) in
                             self.chatMessage.append(dictMessage[key] ?? [])
                         })
-                        
                         self.tableView.reloadData()
+                        if self.chatMessage.count != 0 {
+                            let indexPath = IndexPath(item: self.chatMessage[self.chatMessage.count-1].count-1, section: self.chatMessage.count-1)
+                            self.tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+                        }
+                        
                         
                         
                     }
@@ -265,6 +269,11 @@ class ChatLogController: UIViewController, UITableViewDataSource, UITableViewDel
             uploadMessage(text: textInputView.textView.text, date: Date())
             textInputHeightConstraint?.constant = 50
             textInputView.textView.text = ""
+            if chatMessage.count != 0 {
+                let indexPath = IndexPath(row: chatMessage[chatMessage.count-1].count-1, section: chatMessage.count-1)
+                tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            }
+            
         }
     }
     

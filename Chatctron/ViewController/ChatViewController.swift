@@ -105,13 +105,23 @@ class ChatViewController : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let contextItem = UIContextualAction(style: .destructive, title: "delete") {  (contextualAction, view, boolValue) in
-            let db = Firestore.firestore()
-            let currentUserID = Auth.auth().currentUser?.uid
+        let contextItem = UIContextualAction(style: .destructive, title: "delete") {  (contextualAction, sourceView, Completion) in
+            let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+            alertController.addAction(UIAlertAction(title: "Remove", style: .destructive, handler: {
+                (action) in
+                let db = Firestore.firestore()
+                let currentUserID = Auth.auth().currentUser?.uid
+                db.collection("messages").document("\(currentUserID!)").updateData(
+                    [  "\((self.latestChats[indexPath.row].user?.userID)!)" : FieldValue.delete()]
+                )
+                Completion(true)
+            }))
             
-            db.collection("messages").document("\(currentUserID!)").updateData(
-                [  "\((self.latestChats[indexPath.row].user?.userID)!)" : FieldValue.delete()]
-            )
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {
+                (action) in
+                Completion(false)
+            }))
+            self.present(alertController,animated: true)
         }
         let swipeActions = UISwipeActionsConfiguration(actions: [contextItem])
 
