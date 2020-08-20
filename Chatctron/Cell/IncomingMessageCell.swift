@@ -37,8 +37,9 @@ class IncomingMessageCell: BaseTableCell {
     }()
     @objc func enableDeletion(){
         let generator = UIImpactFeedbackGenerator(style: .medium)
-         generator.impactOccurred()
-         delegate.deleteIncomingMessage(indexPath: indexPath)
+        generator.prepare()
+        generator.impactOccurred()
+        delegate.deleteIncomingMessage(indexPath: indexPath)
      }
     override func setupCell() {
         super.setupCell()

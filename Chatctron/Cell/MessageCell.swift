@@ -36,6 +36,7 @@ class MessageCell: BaseTableCell {
     
     @objc func enableDeletion(){
         let generator = UIImpactFeedbackGenerator(style: .medium)
+        generator.prepare()
         generator.impactOccurred()
         delegate.deleteMessage(indexPath: indexPath)
     }
