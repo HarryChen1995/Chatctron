@@ -11,15 +11,19 @@ import UIKit
 class CustomTabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
-        let homevc = UINavigationController(rootViewController: HomeViewController())
+        let homeViewVC = HomeViewController()
+        let chatViewVC = ChatViewController()
+        homeViewVC.delegate = chatViewVC
+        
+        let homevc = UINavigationController(rootViewController: homeViewVC)
         homevc.tabBarItem.title = "Friends"
         homevc.tabBarItem.image =  UIImage(named: "groups")
+
         
-        
-        
-        let chatvc = UINavigationController(rootViewController: ChatViewController())
+        let chatvc = UINavigationController(rootViewController: chatViewVC)
         chatvc.tabBarItem.title = "Recent Chats"
         chatvc.tabBarItem.image =  UIImage(named: "recent")?.withRenderingMode(.alwaysTemplate)
+        
         
         viewControllers = [
             homevc,

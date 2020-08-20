@@ -12,9 +12,29 @@ import FirebaseFirestore
 import FirebaseAuth
 import FirebaseStorage
 
+
 let usersCache = NSCache<NSString, NSArray>()
 let currentUserCache = NSCache<NSString, User>()
 class HomeViewController : UITableViewController, UISearchResultsUpdating {
+    
+    var delegate: ChatViewController?
+    @objc func refreshFriend(){
+        fetchUsers{self.users = $0}
+        refreshControl?.endRefreshing()
+        let generator = UIImpactFeedbackGenerator(style: .heavy)
+        generator.prepare()
+        generator.impactOccurred()
+    }
+
+    func setupRefreshControl(){
+        refreshControl = UIRefreshControl()
+        refreshControl?.addTarget(self, action: #selector(refreshFriend), for: .valueChanged)
+        refreshControl?.tintColor = .primaryColor
+        refreshControl?.attributedTitle = NSAttributedString(string: "refreshing", attributes: [NSAttributedString.Key.foregroundColor: UIColor.primaryColor])
+    }
+    
+
+    
     let ID = "Friend"
     var users: [User] = []
     var filteredUsers: [User] = []
@@ -149,10 +169,11 @@ class HomeViewController : UITableViewController, UISearchResultsUpdating {
                 let image = UIImage(data: data!)?.withRenderingMode(.alwaysOriginal)
                 completion(image!)
                 self.tableView.reloadData()
+                self.delegate?.tableView.reloadData()
             }}
     }
     
-    private func fetchUsers( completion: @escaping([User])->Void){
+    @objc private func fetchUsers( completion: @escaping([User])->Void){
             let db = Firestore.firestore()
             db.collection("users").getDocuments() { (querySnapshot, err) in
                 if let err = err {
@@ -180,7 +201,7 @@ class HomeViewController : UITableViewController, UISearchResultsUpdating {
                             self.sideMenu.menu.collectionView.reloadData()
                         }
                     }
-                    usersCache.setObject(self.users as NSArray, forKey: "users" as NSString)
+                    usersCache.setObject(users as NSArray, forKey: "users" as NSString)
                     self.tableView.isUserInteractionEnabled = true
                     self.loadingView.isHidden = true
                     if self.searchController.isActive {
@@ -225,6 +246,7 @@ class HomeViewController : UITableViewController, UISearchResultsUpdating {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupRefreshControl()
         navigationItem.searchController = searchController
         sideMenu.setup()
         view.backgroundColor = .white
