@@ -8,11 +8,13 @@ Login Page             |  Sign Up page
 
 ## Slide Menu
 <p align = "center">
-<img src="./images/sidemenu.gif" alt="drawing" width="200"/>
+<img src="./images/sidemenu.gif" alt="alt text" width="200"/>
 </p>
 
 ## Realtime Messaging Demo 
-![alt text](./images/chatdemo.gif)
+<p align = "center">
+<img src="./images/chatdemo.gif" alt="alt text"/>
+</p>
 
 
 
