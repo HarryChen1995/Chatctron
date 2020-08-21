@@ -202,6 +202,7 @@ class HomeViewController : UITableViewController, UISearchResultsUpdating {
                         }
                     }
                     usersCache.setObject(users as NSArray, forKey: "users" as NSString)
+                    self.delegate?.tableView.reloadData()
                     self.tableView.isUserInteractionEnabled = true
                     self.loadingView.isHidden = true
                     if self.searchController.isActive {
