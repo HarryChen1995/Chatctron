@@ -11,4 +11,8 @@ Login Page             |  Sign Up page
 <img src="./images/sidemenu.gif" alt="drawing" width="200"/>
 </p>
 
+## Realtime Messaging Demo 
+![alt text](./images/chatdemo.gif)
+
+
 
