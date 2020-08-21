@@ -6,5 +6,7 @@ Login Page             |  Sign Up page
 :-------------------------:|:-------------------------:
 | ![alt text](./images/login.png) | ![alt text](./images/signup.png) |
 
+## Slide Menu
+
 
 
