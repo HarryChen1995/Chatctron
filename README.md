@@ -13,7 +13,7 @@ Login Page             |  Sign Up page
 
 ## Realtime Messaging Demo 
 <p align = "center">
-<img src="./images/chatdemo.gif" alt="alt text"/>
+<img src="./images/chatdemo.gif" alt="alt text", height = "500"/>
 </p>
 
 
