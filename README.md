@@ -7,6 +7,8 @@ Login Page             |  Sign Up page
 | ![alt text](./images/login.png) | ![alt text](./images/signup.png) |
 
 ## Slide Menu
-
+<p align = "center">
+<img src="./images/sidemenu.gif" alt="drawing" width="200"/>
+</p>
 
 
