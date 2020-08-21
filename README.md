@@ -1,5 +1,5 @@
 # Chatctron
-Chatctron is a realtime ios chat application. Compared to traditional message app using socket.io, Chatctron is powered by [Google Cloud Firestore](https://firebase.google.com/docs/firestore) (NOSQL database) and ensures smooth communication between clients. Users could create an account and login into the app with their verified email and password. After authentication is established by firebase backend service, users can sync their message data with cloud database in real time.
+Chatctron is a realtime ios chat application. Compared to traditional message app using socket.io, Chatctron is powered by [Google Cloud Firestore](https://firebase.google.com/docs/firestore) (NOSQL database) and ensures smooth communication between clients. Users could create an account and login into the app with their verified email and password. After authentication is established by firebase backend service, users can sync message data with cloud database in real time.
 
 ## Login and Sign Up Page
 Login Page             |  Sign Up page
