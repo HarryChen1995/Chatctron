@@ -5,6 +5,6 @@ Chatctron is a realtime ios chat application. Compared to traditional message ap
 | Login Page | Sign Up Page |
 - | -
 | ![alt text](./images/login.png) | ![alt text](./images/signup.png) |
-|
+- | - 
 
 
